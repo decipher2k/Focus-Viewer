@@ -1,3 +1,38 @@
-2024/03/10-17:05:32.926 11ea0 Reusing MANIFEST D:\Focus Browser\bin\Debug\cache\Local Storage\leveldb/MANIFEST-000001
-2024/03/10-17:05:32.929 11ea0 Recovering log #278
-2024/03/10-17:05:32.931 11ea0 Reusing old log D:\Focus Browser\bin\Debug\cache\Local Storage\leveldb/000278.log 
+2024/03/10-20:11:42.266 73a0 Reusing MANIFEST D:\Focus Browser\bin\Debug\cache\Local Storage\leveldb/MANIFEST-000001
+2024/03/10-20:11:42.268 73a0 Recovering log #372
+2024/03/10-20:11:42.270 73a0 Reusing old log D:\Focus Browser\bin\Debug\cache\Local Storage\leveldb/000372.log 
+2024/03/10-20:11:57.475 4da8 Level-0 table #376: started
+2024/03/10-20:11:57.478 4da8 Level-0 table #376: 24367 bytes OK
+2024/03/10-20:11:57.479 4da8 Delete type=0 #372
+2024/03/10-20:11:57.479 4da8 Compacting 4@0 + 1@1 files
+2024/03/10-20:11:57.484 4da8 Generated table #377@0: 167 keys, 206094 bytes
+2024/03/10-20:11:57.484 4da8 Compacted 4@0 + 1@1 files => 206094 bytes
+2024/03/10-20:11:57.484 4da8 compacted to: files[ 0 1 0 0 0 0 0 ]
+2024/03/10-20:11:57.484 4da8 Delete type=2 #365
+2024/03/10-20:11:57.484 4da8 Delete type=2 #368
+2024/03/10-20:11:57.484 4da8 Delete type=2 #370
+2024/03/10-20:11:57.484 4da8 Delete type=2 #373
+2024/03/10-20:11:57.484 4da8 Delete type=2 #376
+2024/03/10-20:12:52.251 4da8 Level-0 table #379: started
+2024/03/10-20:12:52.255 4da8 Level-0 table #379: 19615 bytes OK
+2024/03/10-20:12:52.256 4da8 Delete type=0 #375
+2024/03/10-21:00:23.962 4da8 Level-0 table #381: started
+2024/03/10-21:00:23.965 4da8 Level-0 table #381: 31131 bytes OK
+2024/03/10-21:00:23.966 4da8 Delete type=0 #378
+2024/03/10-21:00:31.520 4da8 Level-0 table #383: started
+2024/03/10-21:00:31.523 4da8 Level-0 table #383: 19731 bytes OK
+2024/03/10-21:00:31.524 4da8 Delete type=0 #380
+2024/03/10-21:02:50.174 4da8 Level-0 table #385: started
+2024/03/10-21:02:50.177 4da8 Level-0 table #385: 26035 bytes OK
+2024/03/10-21:02:50.178 4da8 Delete type=0 #382
+2024/03/10-21:02:50.178 4da8 Compacting 4@0 + 1@1 files
+2024/03/10-21:02:50.183 4da8 Generated table #386@0: 168 keys, 206654 bytes
+2024/03/10-21:02:50.183 4da8 Compacted 4@0 + 1@1 files => 206654 bytes
+2024/03/10-21:02:50.183 4da8 compacted to: files[ 0 1 0 0 0 0 0 ]
+2024/03/10-21:02:50.184 4da8 Delete type=2 #377
+2024/03/10-21:02:50.184 4da8 Delete type=2 #379
+2024/03/10-21:02:50.184 4da8 Delete type=2 #381
+2024/03/10-21:02:50.184 4da8 Delete type=2 #383
+2024/03/10-21:02:50.184 4da8 Delete type=2 #385
+2024/03/10-21:13:20.996 17b0 Level-0 table #388: started
+2024/03/10-21:13:20.999 17b0 Level-0 table #388: 17497 bytes OK

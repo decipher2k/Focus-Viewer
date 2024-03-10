@@ -60,8 +60,22 @@
     <Reference Include="HtmlAgilityPack, Version=1.11.59.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>packages\HtmlAgilityPack.1.11.59\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
+    <Reference Include="IvanAkcheurov.Commons, Version=0.2.1.1, Culture=neutral, PublicKeyToken=a61413de1d13f8fc, processorArchitecture=MSIL">
+      <HintPath>packages\IvanAkcheurov.NTextCat.Lib.0.2.1.1\lib\net40\IvanAkcheurov.Commons.dll</HintPath>
+    </Reference>
+    <Reference Include="IvanAkcheurov.NClassify, Version=0.2.1.1, Culture=neutral, PublicKeyToken=a61413de1d13f8fc, processorArchitecture=MSIL">
+      <HintPath>packages\IvanAkcheurov.NTextCat.Lib.0.2.1.1\lib\net40\IvanAkcheurov.NClassify.dll</HintPath>
+    </Reference>
+    <Reference Include="IvanAkcheurov.NTextCat.Lib, Version=0.2.1.1, Culture=neutral, PublicKeyToken=a61413de1d13f8fc, processorArchitecture=MSIL">
+      <HintPath>packages\IvanAkcheurov.NTextCat.Lib.0.2.1.1\lib\net40\IvanAkcheurov.NTextCat.Lib.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Speech, Version=11.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\VoiceChess2.0_dev 18.02.2022 PGN import\VoiceChess2.0_dev\Project\Microsoft.Speech.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Speech" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -76,6 +90,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CountryConverter.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

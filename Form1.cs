@@ -8,15 +8,18 @@ using CefSharp.WinForms.Internals;
 using FMUtils.KeyboardHook;
 using Focus_Browser.Properties;
 using HtmlAgilityPack;
+using IvanAkcheurov.NTextCat.Lib;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Speech.Synthesis;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -27,14 +30,40 @@ namespace Focus_Browser
 {
     public partial class Form1 : Form
     {
+        RankedLanguageIdentifier identifier = null;
+        string language = "de";
         public static Form1 Instance;
+        public static string ConvertThreeLetterNameToTwoLetterName(string twoLetterCountryCode)
+        {
+            if (twoLetterCountryCode == null || twoLetterCountryCode.Length != 3)
+            {
+                throw new ArgumentException("name must be three letters.");
+            }
+
+            CultureInfo[] cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
+
+            foreach (CultureInfo culture in cultures)
+            {
+                
+                if (culture.ThreeLetterWindowsLanguageName.ToUpper()== twoLetterCountryCode.ToUpper())
+                {
+                    return culture.TwoLetterISOLanguageName;
+                }
+            }
+
+            throw new ArgumentException("Could not get country code");
+        }
+        int offset = 0;
         public Form1()
         {
 
             Instance = this;
      
             InitializeComponent();
+            var factory = new RankedLanguageIdentifierFactory();
+            identifier = factory.Load("Core14.profile.xml"); // can be an absolute or relative path. Beware of 260 chars limitation of the path length in Windows. Linux allows 4096 chars.
            
+            
         }
 
         public List<String> blocked=new List<String>();
@@ -46,9 +75,9 @@ namespace Focus_Browser
                 String tmp = "";
                 Regex regex = new Regex("\\<[p|P](.*)\\<\\/[p|P]\\>");
                 var v = regex.Match(value);
-                if(v.Success)
+                if (v.Success)
                 {
-                    tmp += v.Value+"\r\n\r\n";
+                    tmp += v.Value + "\r\n\r\n";
 
                     v = v.NextMatch();
                     while (v.Success)
@@ -62,19 +91,20 @@ namespace Focus_Browser
                 {
                     tmp = value;
                 }
-                
-
-                
-                
 
 
 
-                tmp = tmp.Replace("<p>", "").Replace("<P>", "").Replace("</p>", "").Replace("</P>", "").Replace("</a>","").Replace("</A>","");
 
-                tmp=HtmlUtilities.ConvertToPlainText(tmp);
+
+
+
+                tmp = tmp.Replace("<p>", "").Replace("<P>", "").Replace("</p>", "").Replace("</P>", "").Replace("</a>", "").Replace("</A>", "");
+
+                tmp = HtmlUtilities.ConvertToPlainText(tmp);
 
                 if (_text != tmp)
                 {
+
                     _text = tmp;
                     richTextBox1.Invoke(new Action(() => { richTextBox1.Text = _text; }));
                     offset = 0;
@@ -89,7 +119,7 @@ namespace Focus_Browser
                                 offset++;
 
                             //richTextBox1.SelectionStart = offset;
-                            start=offset;
+                            start = offset;
                             int i = 0;
                             do
                             {
@@ -107,13 +137,13 @@ namespace Focus_Browser
                                 richTextBox1.SelectionLength = i + 1;
 
                                 offset += i + 1;
-                                end=offset;
+                                end = offset;
                             } while (richTextBox1.SelectionLength < 5 && offset < richTextBox1.TextLength);
 
                             if (highlightWholeParagraphToolStripMenuItem1.CheckState == CheckState.Checked)
                             {
-                                richTextBox1.SelectionStart = getParagraphAroundOffset(end-2, richTextBox1.Text)[0];
-                                richTextBox1.SelectionLength = getParagraphAroundOffset(end-2, richTextBox1.Text)[1] - richTextBox1.SelectionStart;
+                                richTextBox1.SelectionStart = getParagraphAroundOffset(end - 2, richTextBox1.Text)[0];
+                                richTextBox1.SelectionLength = getParagraphAroundOffset(end - 2, richTextBox1.Text)[1] - richTextBox1.SelectionStart;
                                 if (invertColorsToolStripMenuItem1.CheckState != CheckState.Checked)
                                 {
                                     richTextBox1.SelectionBackColor = Color.LightYellow;
@@ -149,18 +179,44 @@ namespace Focus_Browser
                                 richTextBox1.SelectionBackColor = Color.LightGreen;
                             }
 
-                            richTextBox1.Select(0, 0);
-                        }
-                ));
+                           var languages = identifier.Identify(richTextBox1.Text);
+                            var mostCertainLanguage = languages.FirstOrDefault();
+                            CultureInfoConverter converter = new CultureInfoConverter();
 
+                            Cca3 cca3;
+                            Enum.TryParse<Cca3>(mostCertainLanguage.Item1.Iso639_3, out cca3);
+
+                            String twoLetter = Enum.GetName(typeof(Cca2), cca3);
+
+                            language = ConvertThreeLetterNameToTwoLetterName(mostCertainLanguage.Item1.Iso639_3);
+                            SpeakText(richTextBox1.SelectedText);
+                            richTextBox1.Select(0, 0);
+
+                    }));
                     }
-                }
             }
+
+            }
+            }
+        SpeechSynthesizer synthesizer=new SpeechSynthesizer();
+        
+        void SpeakText(string text)
+        {
+            if(textToVoiceToolStripMenuItem.Checked)
+            { 
+                synthesizer.SpeakAsyncCancelAll();
+                synthesizer.Rate = 2;
+                
+                synthesizer.SelectVoice(synthesizer.GetInstalledVoices().Where(a => a.VoiceInfo.Culture.TwoLetterISOLanguageName.ToLower() == language.ToLower() && a.Enabled==true ).First().VoiceInfo.Name);
+          
+                synthesizer.SpeakAsync(text);
+            }
+
         }
 
         int[] getParagraphAroundOffset( int offset, string wholeText)
         {
-            offset++;
+            
             if (offset > wholeText.Length-1 || offset<0)
                 offset = 0;
             int start = offset;
@@ -183,7 +239,7 @@ namespace Focus_Browser
             return new int[] { start, end };
         }
 
-        int offset = 0;
+        
         int length = 100;
         private void toolStripTextBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -443,6 +499,7 @@ namespace Focus_Browser
         }
         private void Form1_Load(object sender, EventArgs e)
         {
+            synthesizer.SetOutputToDefaultAudioDevice();
             new System.Threading.Thread(updateThread).Start();
             sHosts = File.ReadAllLines(".\\hosts");
             
@@ -637,7 +694,7 @@ namespace Focus_Browser
                         else
                         {
                             richTextBox1.SelectionBackColor = Color.Honeydew;
-                            
+                                
                         }
                         
                     }
@@ -646,7 +703,7 @@ namespace Focus_Browser
                     richTextBox1.ScrollToCaret();
 
                     richTextBox1.SelectionStart = start;
-                    richTextBox1.SelectionLength = (end - start)+1;
+                    richTextBox1.SelectionLength = (end - start)+ (ebookContent.Count()>0? 1:0);
 
                     if (highlightWholeParagraphToolStripMenuItem1.CheckState == CheckState.Checked)
                     {
@@ -664,8 +721,8 @@ namespace Focus_Browser
                     {
                         richTextBox1.SelectionBackColor = Color.LightGreen;
                     }
+                    SpeakText(richTextBox1.SelectedText);
 
-                    
                     richTextBox1.Select(0, 0);
                 }
             }));

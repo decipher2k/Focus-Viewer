@@ -100,3 +100,10 @@ D:\Focus Browser\bin\Debug\HtmlAgilityPack.pdb
 D:\Focus Browser\bin\Debug\HtmlAgilityPack.xml
 D:\Focus Browser\bin\Debug\VersOne.Epub.dll
 D:\Focus Browser\bin\Debug\VersOne.Epub.xml
+D:\Focus Browser\bin\Debug\IvanAkcheurov.Commons.dll
+D:\Focus Browser\bin\Debug\IvanAkcheurov.NClassify.dll
+D:\Focus Browser\bin\Debug\IvanAkcheurov.NTextCat.Lib.dll
+D:\Focus Browser\bin\Debug\IvanAkcheurov.Commons.xml
+D:\Focus Browser\bin\Debug\IvanAkcheurov.NClassify.xml
+D:\Focus Browser\bin\Debug\IvanAkcheurov.NTextCat.Lib.xml
+D:\Focus Browser\bin\Debug\Microsoft.Speech.dll
