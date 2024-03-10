@@ -1,0 +1,20 @@
+2024/03/10-13:39:36.103 4d10 Creating DB D:\Focus Browser\bin\Debug\cache\WebStorage\8\IndexedDB\indexeddb.leveldb since it was missing.
+2024/03/10-13:39:36.106 4d10 Reusing MANIFEST D:\Focus Browser\bin\Debug\cache\WebStorage\8\IndexedDB\indexeddb.leveldb/MANIFEST-000001
+2024/03/10-13:39:36.603 10694 Level-0 table #5: started
+2024/03/10-13:39:36.609 10694 Level-0 table #5: 3746 bytes OK
+2024/03/10-13:39:36.610 10694 Delete type=0 #3
+2024/03/10-13:39:36.610 10694 Manual compaction at level-0 from '\x00\x02\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x03\x00\x00\x00' @ 0 : 0; will stop at (end)
+2024/03/10-13:39:36.610 3d8 Level-0 table #7: started
+2024/03/10-13:39:36.616 3d8 Level-0 table #7: 2434 bytes OK
+2024/03/10-13:39:36.617 3d8 Delete type=0 #4
+2024/03/10-13:39:36.617 3d8 Manual compaction at level-0 from '\x00\x05\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x06\x00\x00\x00' @ 0 : 0; will stop at (end)
+2024/03/10-13:39:36.617 3d8 Level-0 table #9: started
+2024/03/10-13:39:36.623 3d8 Level-0 table #9: 525 bytes OK
+2024/03/10-13:39:36.623 3d8 Delete type=0 #6
+2024/03/10-13:39:36.624 3d8 Manual compaction at level-0 from '\x00\x04\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x05\x00\x00\x00' @ 0 : 0; will stop at '\x00\x04\x00\x00\xc8\x11\x00L\x00o\x00g\x00s\x00R\x00e\x00q\x00u\x00e\x00s\x00t\x00s\x00S\x00t\x00o\x00r\x00e' @ 413 : 0
+2024/03/10-13:39:36.624 3d8 Compacting 1@0 + 1@1 files
+2024/03/10-13:39:36.630 3d8 Generated table #10@0: 59 keys, 951 bytes
+2024/03/10-13:39:36.630 3d8 Compacted 1@0 + 1@1 files => 951 bytes
+2024/03/10-13:39:36.630 3d8 compacted to: files[ 0 1 1 0 0 0 0 ]
+2024/03/10-13:39:36.631 3d8 Delete type=2 #9
+2024/03/10-13:39:36.631 3d8 Manual compaction at level-0 from '\x00\x04\x00\x00\xc8\x11\x00L\x00o\x00g\x00s\x00R\x00e\x00q\x00u\x00e\x00s\x00t\x00s\x00S\x00t\x00o\x00r\x00e' @ 413 : 0 .. '\x00\x05\x00\x00\x00' @ 0 : 0; will stop at (end)

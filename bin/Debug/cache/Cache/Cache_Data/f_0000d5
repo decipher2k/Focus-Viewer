@@ -1,0 +1,2907 @@
+window.adHandler = window.adHandler || {cmd: []};adHandler.cmd.push(function () {adHandler.service.addAdUnits({
+	'300_767': [
+    {
+        "bids": [
+            {
+                "bidder": "appnexus",
+                "params": {
+                    "placementId": 14352348
+                }
+            },
+            {
+                "bidder": "ix",
+                "params": {
+                    "siteId": "326400",
+                    "size": [
+                        320,
+                        50
+                    ]
+                }
+            },
+            {
+                "bidder": "pubmatic",
+                "params": {
+                    "publisherId": "158983",
+                    "adSlot": "heise.de"
+                }
+            },
+            {
+                "bidder": "rubicon",
+                "params": {
+                    "accountId": 21770,
+                    "siteId": 305362,
+                    "zoneId": 1540604
+                }
+            },
+            {
+                "bidder": "visx",
+                "params": {
+                    "uid": "922159"
+                }
+            },
+            {
+                "bidder": "triplelift",
+                "params": {
+                    "inventoryCode": "heise_desktop_300x600_prebid"
+                }
+            },
+            {
+                "bidder": "teads",
+                "params": {
+                    "pageId": 84797,
+                    "placementId": 91827
+                }
+            },
+            {
+                "bidder": "connectad",
+                "params": {
+                    "siteId": 3111378,
+                    "networkId": 10047
+                }
+            },
+            {
+                "bidder": "adf",
+                "params": {
+                    "mid": 1821121
+                }
+            },
+            {
+                "bidder": "adagio",
+                "params": {
+                    "organizationId": "1399",
+                    "site": "heise-de",
+                    "placement": "HEI_M_Incontent-1",
+                    "adUnitElementId": "HEI_M_Incontent-1",
+                    "pagetype": "Article",
+                    "environment": "Mobile"
+                }
+            },
+            {
+                "bidder": "stroeerCore",
+                "params": {
+                    "sid": "d5380a96-88bf-49ee-a398-df7c9411bd07"
+                }
+            }
+        ],
+        "tags": [
+            "autorefresh",
+            "sidebar"
+        ],
+        "slotName": "/6514/HEI/M_Artikel-Standard/Incontent-1",
+        "container": "HEI_M_Incontent-1",
+        "refresh": {
+            "every": 30,
+            "require": [
+                "focus",
+                "visibility",
+                "viewable"
+            ]
+        },
+        "sizes": [
+            [
+                300,
+                250
+            ],
+            [
+                300,
+                600
+            ],
+            [
+                320,
+                50
+            ],
+            [
+                320,
+                100
+            ],
+            [
+                300,
+                100
+            ],
+            [
+                300,
+                50
+            ],
+            [
+                320,
+                75
+            ],
+            [
+                300,
+                75
+            ],
+            [
+                300,
+                150
+            ],
+            [
+                320,
+                250
+            ]
+        ],
+        "additionalSlotSizes": [
+            "fluid",
+            [
+                320,
+                2
+            ]
+        ]
+    },
+    {
+        "tags": [
+            "lazy",
+            "incontent"
+        ],
+        "slotName": "/6514/HEI/M_Artikel-Standard/Incontent-2",
+        "container": "HEI_M_Incontent-2",
+        "lazy": {
+            "fetchMarginPercent": 2
+        },
+        "sizes": [],
+        "additionalSlotSizes": [
+            [
+                1,
+                1
+            ],
+            [
+                320,
+                3
+            ],
+            [
+                336,
+                189
+            ]
+        ]
+    },
+    {
+        "bids": [
+            {
+                "bidder": "appnexus",
+                "params": {
+                    "placementId": 14352348
+                }
+            },
+            {
+                "bidder": "ix",
+                "params": {
+                    "siteId": "326400",
+                    "size": [
+                        320,
+                        50
+                    ]
+                }
+            },
+            {
+                "bidder": "pubmatic",
+                "params": {
+                    "publisherId": "158983",
+                    "adSlot": "heise.de"
+                }
+            },
+            {
+                "bidder": "rubicon",
+                "params": {
+                    "accountId": 21770,
+                    "siteId": 305362,
+                    "zoneId": 1540604
+                }
+            },
+            {
+                "bidder": "visx",
+                "params": {
+                    "uid": "922159"
+                }
+            },
+            {
+                "bidder": "triplelift",
+                "params": {
+                    "inventoryCode": "heise_desktop_300x250_prebid"
+                }
+            },
+            {
+                "bidder": "teads",
+                "params": {
+                    "pageId": 188378,
+                    "placementId": 203485
+                }
+            },
+            {
+                "bidder": "connectad",
+                "params": {
+                    "siteId": 3111379,
+                    "networkId": 10047
+                }
+            },
+            {
+                "bidder": "adf",
+                "params": {
+                    "mid": 1821080
+                }
+            },
+            {
+                "bidder": "adagio",
+                "params": {
+                    "organizationId": "1399",
+                    "site": "heise-de",
+                    "placement": "HEI_M_Incontent-3",
+                    "adUnitElementId": "HEI_M_Incontent-3",
+                    "pagetype": "Article",
+                    "environment": "Mobile"
+                }
+            },
+            {
+                "bidder": "stroeerCore",
+                "params": {
+                    "sid": "cde25e3d-566d-4e58-a2aa-146ac0f1aa35"
+                }
+            }
+        ],
+        "tags": [
+            "autorefresh",
+            "lazy",
+            "banner"
+        ],
+        "slotName": "/6514/HEI/M_Artikel-Standard/Incontent-3",
+        "container": "HEI_M_Incontent-3",
+        "refresh": {
+            "every": 30,
+            "require": [
+                "focus",
+                "visibility",
+                "viewable"
+            ]
+        },
+        "lazy": {
+            "fetchMarginPercent": 2
+        },
+        "sizes": [
+            [
+                300,
+                250
+            ],
+            [
+                320,
+                50
+            ],
+            [
+                320,
+                100
+            ],
+            [
+                300,
+                100
+            ],
+            [
+                300,
+                50
+            ],
+            [
+                320,
+                75
+            ],
+            [
+                300,
+                75
+            ],
+            [
+                300,
+                150
+            ],
+            [
+                320,
+                250
+            ]
+        ],
+        "additionalSlotSizes": [
+            "fluid",
+            [
+                320,
+                4
+            ]
+        ]
+    },
+    {
+        "bids": [
+            {
+                "bidder": "appnexus",
+                "params": {
+                    "placementId": 14352348
+                }
+            },
+            {
+                "bidder": "ix",
+                "params": {
+                    "siteId": "326400",
+                    "size": [
+                        320,
+                        50
+                    ]
+                }
+            },
+            {
+                "bidder": "pubmatic",
+                "params": {
+                    "publisherId": "158983",
+                    "adSlot": "heise.de"
+                }
+            },
+            {
+                "bidder": "rubicon",
+                "params": {
+                    "accountId": 21770,
+                    "siteId": 305362,
+                    "zoneId": 1540604
+                }
+            },
+            {
+                "bidder": "visx",
+                "params": {
+                    "uid": "922159"
+                }
+            },
+            {
+                "bidder": "triplelift",
+                "params": {
+                    "inventoryCode": "heise_desktop_300x250_prebid"
+                }
+            },
+            {
+                "bidder": "teads",
+                "params": {
+                    "pageId": 188378,
+                    "placementId": 203485
+                }
+            },
+            {
+                "bidder": "connectad",
+                "params": {
+                    "siteId": 3111380,
+                    "networkId": 10047
+                }
+            },
+            {
+                "bidder": "adf",
+                "params": {
+                    "mid": 1821081
+                }
+            },
+            {
+                "bidder": "adagio",
+                "params": {
+                    "organizationId": "1399",
+                    "site": "heise-de",
+                    "placement": "HEI_M_Incontent-4",
+                    "adUnitElementId": "HEI_M_Incontent-4",
+                    "pagetype": "Article",
+                    "environment": "Mobile"
+                }
+            },
+            {
+                "bidder": "stroeerCore",
+                "params": {
+                    "sid": "5a9c6a5a-b855-4b53-a334-df860ff8827a"
+                }
+            }
+        ],
+        "tags": [
+            "autorefresh",
+            "lazy",
+            "banner"
+        ],
+        "slotName": "/6514/HEI/M_Artikel-Standard/Incontent-4",
+        "container": "HEI_M_Incontent-4",
+        "refresh": {
+            "every": 30,
+            "require": [
+                "focus",
+                "visibility",
+                "viewable"
+            ]
+        },
+        "lazy": {
+            "fetchMarginPercent": 2
+        },
+        "sizes": [
+            [
+                300,
+                250
+            ],
+            [
+                320,
+                50
+            ],
+            [
+                320,
+                100
+            ],
+            [
+                300,
+                100
+            ],
+            [
+                300,
+                50
+            ],
+            [
+                320,
+                75
+            ],
+            [
+                300,
+                75
+            ],
+            [
+                300,
+                150
+            ],
+            [
+                320,
+                250
+            ]
+        ],
+        "additionalSlotSizes": [
+            "fluid",
+            [
+                320,
+                5
+            ]
+        ]
+    },
+    {
+        "bids": [
+            {
+                "bidder": "appnexus",
+                "params": {
+                    "placementId": 14352348
+                }
+            },
+            {
+                "bidder": "ix",
+                "params": {
+                    "siteId": "326400",
+                    "size": [
+                        320,
+                        50
+                    ]
+                }
+            },
+            {
+                "bidder": "pubmatic",
+                "params": {
+                    "publisherId": "158983",
+                    "adSlot": "heise.de"
+                }
+            },
+            {
+                "bidder": "rubicon",
+                "params": {
+                    "accountId": 21770,
+                    "siteId": 305362,
+                    "zoneId": 1540604
+                }
+            },
+            {
+                "bidder": "visx",
+                "params": {
+                    "uid": "922159"
+                }
+            },
+            {
+                "bidder": "triplelift",
+                "params": {
+                    "inventoryCode": "heise_desktop_300x250_prebid"
+                }
+            },
+            {
+                "bidder": "teads",
+                "params": {
+                    "pageId": 188378,
+                    "placementId": 203485
+                }
+            },
+            {
+                "bidder": "connectad",
+                "params": {
+                    "siteId": 3111381,
+                    "networkId": 10047
+                }
+            },
+            {
+                "bidder": "adf",
+                "params": {
+                    "mid": 1821085
+                }
+            },
+            {
+                "bidder": "adagio",
+                "params": {
+                    "organizationId": "1399",
+                    "site": "heise-de",
+                    "placement": "HEI_M_Incontent-5",
+                    "adUnitElementId": "HEI_M_Incontent-5",
+                    "pagetype": "Article",
+                    "environment": "Mobile"
+                }
+            },
+            {
+                "bidder": "stroeerCore",
+                "params": {
+                    "sid": "ba1557cd-2168-4b2b-a164-0bb88d4e09e6"
+                }
+            }
+        ],
+        "tags": [
+            "autorefresh",
+            "lazy",
+            "banner"
+        ],
+        "slotName": "/6514/HEI/M_Artikel-Standard/Incontent-5",
+        "container": "HEI_M_Incontent-5",
+        "refresh": {
+            "every": 30,
+            "require": [
+                "focus",
+                "visibility",
+                "viewable"
+            ]
+        },
+        "lazy": {
+            "fetchMarginPercent": 2
+        },
+        "sizes": [
+            [
+                300,
+                250
+            ],
+            [
+                320,
+                50
+            ],
+            [
+                320,
+                100
+            ],
+            [
+                300,
+                100
+            ],
+            [
+                300,
+                50
+            ],
+            [
+                320,
+                75
+            ],
+            [
+                300,
+                75
+            ],
+            [
+                300,
+                150
+            ],
+            [
+                320,
+                250
+            ]
+        ],
+        "additionalSlotSizes": [
+            "fluid",
+            [
+                320,
+                6
+            ]
+        ]
+    },
+    {
+        "bids": [
+            {
+                "bidder": "appnexus",
+                "params": {
+                    "placementId": 14352348
+                }
+            },
+            {
+                "bidder": "ix",
+                "params": {
+                    "siteId": "326400",
+                    "size": [
+                        320,
+                        50
+                    ]
+                }
+            },
+            {
+                "bidder": "pubmatic",
+                "params": {
+                    "publisherId": "158983",
+                    "adSlot": "heise.de"
+                }
+            },
+            {
+                "bidder": "rubicon",
+                "params": {
+                    "accountId": 21770,
+                    "siteId": 305362,
+                    "zoneId": 1540604
+                }
+            },
+            {
+                "bidder": "visx",
+                "params": {
+                    "uid": "922159"
+                }
+            },
+            {
+                "bidder": "triplelift",
+                "params": {
+                    "inventoryCode": "heise_desktop_300x600_prebid"
+                }
+            },
+            {
+                "bidder": "connectad",
+                "params": {
+                    "siteId": 3111382,
+                    "networkId": 10047
+                }
+            },
+            {
+                "bidder": "adf",
+                "params": {
+                    "mid": 1821120
+                }
+            },
+            {
+                "bidder": "adagio",
+                "params": {
+                    "organizationId": "1399",
+                    "site": "heise-de",
+                    "placement": "HEI_M_Footer",
+                    "adUnitElementId": "HEI_M_Footer",
+                    "pagetype": "Article",
+                    "environment": "Mobile"
+                }
+            },
+            {
+                "bidder": "stroeerCore",
+                "params": {
+                    "sid": "8eab5d34-7fe8-464c-827f-c5f429c5eb60"
+                }
+            }
+        ],
+        "tags": [
+            "autorefresh",
+            "lazy",
+            "sidebar"
+        ],
+        "slotName": "/6514/HEI/M_Artikel-Standard/Footer",
+        "container": "HEI_M_Footer",
+        "refresh": {
+            "every": 30,
+            "require": [
+                "focus",
+                "visibility",
+                "viewable"
+            ]
+        },
+        "lazy": {
+            "fetchMarginPercent": 2
+        },
+        "sizes": [
+            [
+                300,
+                250
+            ],
+            [
+                300,
+                600
+            ],
+            [
+                320,
+                50
+            ],
+            [
+                320,
+                100
+            ],
+            [
+                300,
+                100
+            ],
+            [
+                300,
+                50
+            ],
+            [
+                320,
+                75
+            ],
+            [
+                300,
+                75
+            ],
+            [
+                300,
+                150
+            ],
+            [
+                320,
+                250
+            ]
+        ],
+        "additionalSlotSizes": [
+            [
+                321,
+                10
+            ]
+        ]
+    },
+    {
+        "tags": [
+            "webinterstitial",
+            "incontent"
+        ],
+        "slotName": "/6514/HEI/M_ROS/Out-of-Page",
+        "container": 5,
+        "defineOutOfPage": true,
+        "sizes": []
+    }
+]});adHandler.service.addAdUnits({
+	'768_991': [
+    {
+        "bids": [
+            {
+                "bidder": "appnexus",
+                "params": {
+                    "placementId": 14352348
+                }
+            },
+            {
+                "bidder": "ix",
+                "params": {
+                    "siteId": "326400",
+                    "size": [
+                        728,
+                        90
+                    ]
+                }
+            },
+            {
+                "bidder": "pubmatic",
+                "params": {
+                    "publisherId": "158983",
+                    "adSlot": "heise.de"
+                }
+            },
+            {
+                "bidder": "rubicon",
+                "params": {
+                    "accountId": 21770,
+                    "siteId": 305362,
+                    "zoneId": 1540604
+                }
+            },
+            {
+                "bidder": "triplelift",
+                "params": {
+                    "inventoryCode": "heise_desktop_970x250_prebid"
+                }
+            },
+            {
+                "bidder": "teads",
+                "params": {
+                    "pageId": 188381,
+                    "placementId": 203488
+                }
+            },
+            {
+                "bidder": "connectad",
+                "params": {
+                    "siteId": 3111375,
+                    "networkId": 10047
+                }
+            },
+            {
+                "bidder": "adf",
+                "params": {
+                    "mid": 1821035
+                }
+            },
+            {
+                "bidder": "adagio",
+                "params": {
+                    "organizationId": "1399",
+                    "site": "heise-de",
+                    "placement": "HEI_D_Top",
+                    "adUnitElementId": "HEI_D_Top",
+                    "pagetype": "Article",
+                    "environment": "Desktop"
+                }
+            },
+            {
+                "bidder": "stroeerCore",
+                "params": {
+                    "sid": "358356b3-4330-4d21-bbc6-8efff1d92180"
+                }
+            }
+        ],
+        "tags": [
+            "banner"
+        ],
+        "slotName": "/6514/HEI/D_Artikel-Standard/Top",
+        "container": "HEI_D_Top",
+        "sizes": [
+            [
+                728,
+                90
+            ]
+        ],
+        "additionalSlotSizes": [
+            [
+                970,
+                1
+            ]
+        ]
+    },
+    {
+        "tags": [
+            "lazy",
+            "incontent"
+        ],
+        "slotName": "/6514/HEI/D_Artikel-Standard/Incontent-2",
+        "container": "HEI_D_Incontent-2",
+        "lazy": {
+            "fetchMarginPercent": 2
+        },
+        "sizes": [],
+        "additionalSlotSizes": [
+            [
+                1,
+                1
+            ],
+            [
+                300,
+                4
+            ],
+            [
+                610,
+                300
+            ]
+        ]
+    },
+    {
+        "bids": [
+            {
+                "bidder": "appnexus",
+                "params": {
+                    "placementId": 14352348
+                }
+            },
+            {
+                "bidder": "ix",
+                "params": {
+                    "siteId": "326400",
+                    "size": [
+                        970,
+                        250
+                    ]
+                }
+            },
+            {
+                "bidder": "pubmatic",
+                "params": {
+                    "publisherId": "158983",
+                    "adSlot": "heise.de"
+                }
+            },
+            {
+                "bidder": "rubicon",
+                "params": {
+                    "accountId": 21770,
+                    "siteId": 305362,
+                    "zoneId": 1540604
+                }
+            },
+            {
+                "bidder": "triplelift",
+                "params": {
+                    "inventoryCode": "heise_desktop_300x600_prebid"
+                }
+            },
+            {
+                "bidder": "connectad",
+                "params": {
+                    "siteId": 3111377,
+                    "networkId": 10047
+                }
+            },
+            {
+                "bidder": "adf",
+                "params": {
+                    "mid": 1821037
+                }
+            },
+            {
+                "bidder": "adagio",
+                "params": {
+                    "organizationId": "1399",
+                    "site": "heise-de",
+                    "placement": "HEI_D_Footer",
+                    "adUnitElementId": "HEI_D_Footer",
+                    "pagetype": "Article",
+                    "environment": "Desktop"
+                }
+            },
+            {
+                "bidder": "stroeerCore",
+                "params": {
+                    "sid": "a1ab649b-8656-4960-a27d-d276f56057cd"
+                }
+            }
+        ],
+        "tags": [
+            "autorefresh",
+            "lazy",
+            "banner"
+        ],
+        "slotName": "/6514/HEI/D_Artikel-Standard/Footer",
+        "container": "HEI_D_Footer",
+        "refresh": {
+            "every": 30,
+            "require": [
+                "focus",
+                "visibility",
+                "viewable"
+            ]
+        },
+        "lazy": {
+            "fetchMarginPercent": 2
+        },
+        "sizes": [
+            [
+                300,
+                250
+            ],
+            [
+                728,
+                90
+            ],
+            [
+                800,
+                250
+            ],
+            [
+                300,
+                600
+            ],
+            [
+                970,
+                250
+            ]
+        ],
+        "additionalSlotSizes": [
+            [
+                301,
+                10
+            ]
+        ]
+    }
+]});adHandler.service.addAdUnits({
+	'992_1263': [
+    {
+        "bids": [
+            {
+                "bidder": "appnexus",
+                "params": {
+                    "placementId": 14352348
+                }
+            },
+            {
+                "bidder": "ix",
+                "params": {
+                    "siteId": "326400",
+                    "size": [
+                        970,
+                        250
+                    ]
+                }
+            },
+            {
+                "bidder": "pubmatic",
+                "params": {
+                    "publisherId": "158983",
+                    "adSlot": "heise.de"
+                }
+            },
+            {
+                "bidder": "rubicon",
+                "params": {
+                    "accountId": 21770,
+                    "siteId": 305362,
+                    "zoneId": 1540604
+                }
+            },
+            {
+                "bidder": "triplelift",
+                "params": {
+                    "inventoryCode": "heise_desktop_970x250_prebid"
+                }
+            },
+            {
+                "bidder": "teads",
+                "params": {
+                    "pageId": 188381,
+                    "placementId": 203488
+                }
+            },
+            {
+                "bidder": "connectad",
+                "params": {
+                    "siteId": 3111375,
+                    "networkId": 10047
+                }
+            },
+            {
+                "bidder": "adf",
+                "params": {
+                    "mid": 1821035
+                }
+            },
+            {
+                "bidder": "adagio",
+                "params": {
+                    "organizationId": "1399",
+                    "site": "heise-de",
+                    "placement": "HEI_D_Top",
+                    "adUnitElementId": "HEI_D_Top",
+                    "pagetype": "Article",
+                    "environment": "Desktop"
+                }
+            },
+            {
+                "bidder": "stroeerCore",
+                "params": {
+                    "sid": "358356b3-4330-4d21-bbc6-8efff1d92180"
+                }
+            }
+        ],
+        "tags": [
+            "banner"
+        ],
+        "slotName": "/6514/HEI/D_Artikel-Standard/Top",
+        "container": "HEI_D_Top",
+        "sizes": [
+            [
+                728,
+                90
+            ],
+            [
+                800,
+                250
+            ],
+            [
+                970,
+                250
+            ]
+        ],
+        "additionalSlotSizes": [
+            [
+                970,
+                1
+            ],
+            [
+                1104,
+                90
+            ],
+            [
+                1104,
+                250
+            ]
+        ]
+    },
+    {
+        "bids": [
+            {
+                "bidder": "appnexus",
+                "params": {
+                    "placementId": 14352348
+                }
+            },
+            {
+                "bidder": "ix",
+                "params": {
+                    "siteId": "326400",
+                    "size": [
+                        300,
+                        250
+                    ]
+                }
+            },
+            {
+                "bidder": "pubmatic",
+                "params": {
+                    "publisherId": "158983",
+                    "adSlot": "heise.de"
+                }
+            },
+            {
+                "bidder": "rubicon",
+                "params": {
+                    "accountId": 21770,
+                    "siteId": 305362,
+                    "zoneId": 1540604
+                }
+            },
+            {
+                "bidder": "triplelift",
+                "params": {
+                    "inventoryCode": "heise_desktop_300x250_prebid"
+                }
+            },
+            {
+                "bidder": "teads",
+                "params": {
+                    "pageId": 188381,
+                    "placementId": 203488
+                }
+            },
+            {
+                "bidder": "connectad",
+                "params": {
+                    "siteId": 3111376,
+                    "networkId": 10047
+                }
+            },
+            {
+                "bidder": "adf",
+                "params": {
+                    "mid": 1821036
+                }
+            },
+            {
+                "bidder": "adagio",
+                "params": {
+                    "organizationId": "1399",
+                    "site": "heise-de",
+                    "placement": "HEI_D_Incontent-1",
+                    "adUnitElementId": "HEI_D_Incontent-1",
+                    "pagetype": "Article",
+                    "environment": "Desktop"
+                }
+            },
+            {
+                "bidder": "stroeerCore",
+                "params": {
+                    "sid": "bbf102ed-8fb4-4b7f-962f-4ecac10d3d4c"
+                }
+            }
+        ],
+        "tags": [
+            "autorefresh",
+            "sidebar"
+        ],
+        "slotName": "/6514/HEI/D_Artikel-Standard/Incontent-1",
+        "container": "HEI_D_Incontent-1",
+        "refresh": {
+            "every": 30,
+            "require": [
+                "focus",
+                "visibility",
+                "viewable"
+            ]
+        },
+        "sizes": [
+            [
+                300,
+                250
+            ],
+            [
+                300,
+                600
+            ]
+        ],
+        "additionalSlotSizes": [
+            "fluid",
+            [
+                300,
+                3
+            ]
+        ]
+    },
+    {
+        "tags": [
+            "lazy",
+            "incontent"
+        ],
+        "slotName": "/6514/HEI/D_Artikel-Standard/Incontent-2",
+        "container": "HEI_D_Incontent-2",
+        "lazy": {
+            "fetchMarginPercent": 2
+        },
+        "sizes": [],
+        "additionalSlotSizes": [
+            [
+                1,
+                1
+            ],
+            [
+                300,
+                4
+            ],
+            [
+                610,
+                300
+            ]
+        ]
+    },
+    {
+        "bids": [
+            {
+                "bidder": "appnexus",
+                "params": {
+                    "placementId": 14352348
+                }
+            },
+            {
+                "bidder": "ix",
+                "params": {
+                    "siteId": "326400",
+                    "size": [
+                        970,
+                        250
+                    ]
+                }
+            },
+            {
+                "bidder": "pubmatic",
+                "params": {
+                    "publisherId": "158983",
+                    "adSlot": "heise.de"
+                }
+            },
+            {
+                "bidder": "rubicon",
+                "params": {
+                    "accountId": 21770,
+                    "siteId": 305362,
+                    "zoneId": 1540604
+                }
+            },
+            {
+                "bidder": "triplelift",
+                "params": {
+                    "inventoryCode": "heise_desktop_300x600_prebid"
+                }
+            },
+            {
+                "bidder": "connectad",
+                "params": {
+                    "siteId": 3111377,
+                    "networkId": 10047
+                }
+            },
+            {
+                "bidder": "adf",
+                "params": {
+                    "mid": 1821037
+                }
+            },
+            {
+                "bidder": "adagio",
+                "params": {
+                    "organizationId": "1399",
+                    "site": "heise-de",
+                    "placement": "HEI_D_Footer",
+                    "adUnitElementId": "HEI_D_Footer",
+                    "pagetype": "Article",
+                    "environment": "Desktop"
+                }
+            },
+            {
+                "bidder": "stroeerCore",
+                "params": {
+                    "sid": "a1ab649b-8656-4960-a27d-d276f56057cd"
+                }
+            }
+        ],
+        "tags": [
+            "autorefresh",
+            "lazy",
+            "banner"
+        ],
+        "slotName": "/6514/HEI/D_Artikel-Standard/Footer",
+        "container": "HEI_D_Footer",
+        "refresh": {
+            "every": 30,
+            "require": [
+                "focus",
+                "visibility",
+                "viewable"
+            ]
+        },
+        "lazy": {
+            "fetchMarginPercent": 2
+        },
+        "sizes": [
+            [
+                300,
+                250
+            ],
+            [
+                728,
+                90
+            ],
+            [
+                800,
+                250
+            ],
+            [
+                300,
+                600
+            ],
+            [
+                970,
+                250
+            ]
+        ],
+        "additionalSlotSizes": [
+            [
+                301,
+                10
+            ]
+        ]
+    }
+]});adHandler.service.addAdUnits({
+	'1264_1303': [
+    {
+        "bids": [
+            {
+                "bidder": "appnexus",
+                "params": {
+                    "placementId": 14352348
+                }
+            },
+            {
+                "bidder": "ix",
+                "params": {
+                    "siteId": "326400",
+                    "size": [
+                        160,
+                        600
+                    ]
+                }
+            },
+            {
+                "bidder": "pubmatic",
+                "params": {
+                    "publisherId": "158983",
+                    "adSlot": "heise.de"
+                }
+            },
+            {
+                "bidder": "rubicon",
+                "params": {
+                    "accountId": 21770,
+                    "siteId": 305362,
+                    "zoneId": 1540604
+                }
+            },
+            {
+                "bidder": "triplelift",
+                "params": {
+                    "inventoryCode": "heise_desktop_300x600_prebid"
+                }
+            },
+            {
+                "bidder": "teads",
+                "params": {
+                    "pageId": 188381,
+                    "placementId": 203488
+                }
+            },
+            {
+                "bidder": "connectad",
+                "params": {
+                    "siteId": 3111374,
+                    "networkId": 10047
+                }
+            },
+            {
+                "bidder": "adf",
+                "params": {
+                    "mid": 1821079
+                }
+            },
+            {
+                "bidder": "adagio",
+                "params": {
+                    "organizationId": "1399",
+                    "site": "heise-de",
+                    "placement": "HEI_D_Right",
+                    "adUnitElementId": "HEI_D_Right",
+                    "pagetype": "Article",
+                    "environment": "Desktop"
+                }
+            },
+            {
+                "bidder": "stroeerCore",
+                "params": {
+                    "sid": "27ea5f7e-c709-4d05-b611-2332a015ed1f"
+                }
+            }
+        ],
+        "tags": [
+            "autorefresh",
+            "sticky",
+            "sidebar"
+        ],
+        "slotName": "/6514/HEI/D_Artikel-Standard/Right",
+        "container": "HEI_D_Right",
+        "refresh": {
+            "every": 30,
+            "require": [
+                "focus",
+                "visibility",
+                "viewable"
+            ]
+        },
+        "sticky": {
+            "location": "default",
+            "zIndex": 10000
+        },
+        "sizes": [
+            [
+                160,
+                600
+            ],
+            [
+                120,
+                600
+            ],
+            [
+                120,
+                800
+            ],
+            [
+                160,
+                800
+            ]
+        ],
+        "additionalSlotSizes": [
+            [
+                160,
+                1
+            ]
+        ]
+    },
+    {
+        "tags": [
+            "incontent"
+        ],
+        "slotName": "/6514/HEI/D_Artikel-Standard/Stage",
+        "container": "HEI_D_Stage",
+        "sizes": [],
+        "additionalSlotSizes": [
+            [
+                970,
+                2
+            ],
+            [
+                1056,
+                250
+            ]
+        ]
+    },
+    {
+        "bids": [
+            {
+                "bidder": "appnexus",
+                "params": {
+                    "placementId": 14352348
+                }
+            },
+            {
+                "bidder": "ix",
+                "params": {
+                    "siteId": "326400",
+                    "size": [
+                        970,
+                        250
+                    ]
+                }
+            },
+            {
+                "bidder": "pubmatic",
+                "params": {
+                    "publisherId": "158983",
+                    "adSlot": "heise.de"
+                }
+            },
+            {
+                "bidder": "rubicon",
+                "params": {
+                    "accountId": 21770,
+                    "siteId": 305362,
+                    "zoneId": 1540604
+                }
+            },
+            {
+                "bidder": "triplelift",
+                "params": {
+                    "inventoryCode": "heise_desktop_970x250_prebid"
+                }
+            },
+            {
+                "bidder": "teads",
+                "params": {
+                    "pageId": 188381,
+                    "placementId": 203488
+                }
+            },
+            {
+                "bidder": "connectad",
+                "params": {
+                    "siteId": 3111375,
+                    "networkId": 10047
+                }
+            },
+            {
+                "bidder": "adf",
+                "params": {
+                    "mid": 1821035
+                }
+            },
+            {
+                "bidder": "adagio",
+                "params": {
+                    "organizationId": "1399",
+                    "site": "heise-de",
+                    "placement": "HEI_D_Top",
+                    "adUnitElementId": "HEI_D_Top",
+                    "pagetype": "Article",
+                    "environment": "Desktop"
+                }
+            },
+            {
+                "bidder": "stroeerCore",
+                "params": {
+                    "sid": "358356b3-4330-4d21-bbc6-8efff1d92180"
+                }
+            }
+        ],
+        "tags": [
+            "banner"
+        ],
+        "slotName": "/6514/HEI/D_Artikel-Standard/Top",
+        "container": "HEI_D_Top",
+        "sizes": [
+            [
+                728,
+                90
+            ],
+            [
+                800,
+                250
+            ],
+            [
+                970,
+                250
+            ]
+        ],
+        "additionalSlotSizes": [
+            [
+                970,
+                1
+            ],
+            [
+                1104,
+                90
+            ],
+            [
+                1104,
+                250
+            ]
+        ]
+    },
+    {
+        "bids": [
+            {
+                "bidder": "appnexus",
+                "params": {
+                    "placementId": 14352348
+                }
+            },
+            {
+                "bidder": "ix",
+                "params": {
+                    "siteId": "326400",
+                    "size": [
+                        300,
+                        250
+                    ]
+                }
+            },
+            {
+                "bidder": "pubmatic",
+                "params": {
+                    "publisherId": "158983",
+                    "adSlot": "heise.de"
+                }
+            },
+            {
+                "bidder": "rubicon",
+                "params": {
+                    "accountId": 21770,
+                    "siteId": 305362,
+                    "zoneId": 1540604
+                }
+            },
+            {
+                "bidder": "triplelift",
+                "params": {
+                    "inventoryCode": "heise_desktop_300x250_prebid"
+                }
+            },
+            {
+                "bidder": "teads",
+                "params": {
+                    "pageId": 188381,
+                    "placementId": 203488
+                }
+            },
+            {
+                "bidder": "connectad",
+                "params": {
+                    "siteId": 3111376,
+                    "networkId": 10047
+                }
+            },
+            {
+                "bidder": "adf",
+                "params": {
+                    "mid": 1821036
+                }
+            },
+            {
+                "bidder": "adagio",
+                "params": {
+                    "organizationId": "1399",
+                    "site": "heise-de",
+                    "placement": "HEI_D_Incontent-1",
+                    "adUnitElementId": "HEI_D_Incontent-1",
+                    "pagetype": "Article",
+                    "environment": "Desktop"
+                }
+            },
+            {
+                "bidder": "stroeerCore",
+                "params": {
+                    "sid": "bbf102ed-8fb4-4b7f-962f-4ecac10d3d4c"
+                }
+            }
+        ],
+        "tags": [
+            "autorefresh",
+            "sidebar"
+        ],
+        "slotName": "/6514/HEI/D_Artikel-Standard/Incontent-1",
+        "container": "HEI_D_Incontent-1",
+        "refresh": {
+            "every": 30,
+            "require": [
+                "focus",
+                "visibility",
+                "viewable"
+            ]
+        },
+        "sizes": [
+            [
+                300,
+                250
+            ],
+            [
+                300,
+                600
+            ]
+        ],
+        "additionalSlotSizes": [
+            "fluid",
+            [
+                300,
+                3
+            ]
+        ]
+    },
+    {
+        "tags": [
+            "lazy",
+            "incontent"
+        ],
+        "slotName": "/6514/HEI/D_Artikel-Standard/Incontent-2",
+        "container": "HEI_D_Incontent-2",
+        "lazy": {
+            "fetchMarginPercent": 2
+        },
+        "sizes": [],
+        "additionalSlotSizes": [
+            [
+                1,
+                1
+            ],
+            [
+                300,
+                4
+            ],
+            [
+                610,
+                300
+            ]
+        ]
+    },
+    {
+        "bids": [
+            {
+                "bidder": "appnexus",
+                "params": {
+                    "placementId": 14352348
+                }
+            },
+            {
+                "bidder": "ix",
+                "params": {
+                    "siteId": "326400",
+                    "size": [
+                        970,
+                        250
+                    ]
+                }
+            },
+            {
+                "bidder": "pubmatic",
+                "params": {
+                    "publisherId": "158983",
+                    "adSlot": "heise.de"
+                }
+            },
+            {
+                "bidder": "rubicon",
+                "params": {
+                    "accountId": 21770,
+                    "siteId": 305362,
+                    "zoneId": 1540604
+                }
+            },
+            {
+                "bidder": "triplelift",
+                "params": {
+                    "inventoryCode": "heise_desktop_300x600_prebid"
+                }
+            },
+            {
+                "bidder": "connectad",
+                "params": {
+                    "siteId": 3111377,
+                    "networkId": 10047
+                }
+            },
+            {
+                "bidder": "adf",
+                "params": {
+                    "mid": 1821037
+                }
+            },
+            {
+                "bidder": "adagio",
+                "params": {
+                    "organizationId": "1399",
+                    "site": "heise-de",
+                    "placement": "HEI_D_Footer",
+                    "adUnitElementId": "HEI_D_Footer",
+                    "pagetype": "Article",
+                    "environment": "Desktop"
+                }
+            },
+            {
+                "bidder": "stroeerCore",
+                "params": {
+                    "sid": "a1ab649b-8656-4960-a27d-d276f56057cd"
+                }
+            }
+        ],
+        "tags": [
+            "autorefresh",
+            "lazy",
+            "banner"
+        ],
+        "slotName": "/6514/HEI/D_Artikel-Standard/Footer",
+        "container": "HEI_D_Footer",
+        "refresh": {
+            "every": 30,
+            "require": [
+                "focus",
+                "visibility",
+                "viewable"
+            ]
+        },
+        "lazy": {
+            "fetchMarginPercent": 2
+        },
+        "sizes": [
+            [
+                300,
+                250
+            ],
+            [
+                728,
+                90
+            ],
+            [
+                800,
+                250
+            ],
+            [
+                300,
+                600
+            ],
+            [
+                970,
+                250
+            ]
+        ],
+        "additionalSlotSizes": [
+            [
+                301,
+                10
+            ]
+        ]
+    }
+]});adHandler.service.addAdUnits({
+	'1304_1403': [
+    {
+        "bids": [
+            {
+                "bidder": "appnexus",
+                "params": {
+                    "placementId": 14352348
+                }
+            },
+            {
+                "bidder": "ix",
+                "params": {
+                    "siteId": "326400",
+                    "size": [
+                        200,
+                        600
+                    ]
+                }
+            },
+            {
+                "bidder": "pubmatic",
+                "params": {
+                    "publisherId": "158983",
+                    "adSlot": "heise.de"
+                }
+            },
+            {
+                "bidder": "rubicon",
+                "params": {
+                    "accountId": 21770,
+                    "siteId": 305362,
+                    "zoneId": 1540604
+                }
+            },
+            {
+                "bidder": "triplelift",
+                "params": {
+                    "inventoryCode": "heise_desktop_300x600_prebid"
+                }
+            },
+            {
+                "bidder": "teads",
+                "params": {
+                    "pageId": 188381,
+                    "placementId": 203488
+                }
+            },
+            {
+                "bidder": "connectad",
+                "params": {
+                    "siteId": 3111374,
+                    "networkId": 10047
+                }
+            },
+            {
+                "bidder": "adf",
+                "params": {
+                    "mid": 1821079
+                }
+            },
+            {
+                "bidder": "adagio",
+                "params": {
+                    "organizationId": "1399",
+                    "site": "heise-de",
+                    "placement": "HEI_D_Right",
+                    "adUnitElementId": "HEI_D_Right",
+                    "pagetype": "Article",
+                    "environment": "Desktop"
+                }
+            },
+            {
+                "bidder": "stroeerCore",
+                "params": {
+                    "sid": "27ea5f7e-c709-4d05-b611-2332a015ed1f"
+                }
+            }
+        ],
+        "tags": [
+            "autorefresh",
+            "sticky",
+            "sidebar"
+        ],
+        "slotName": "/6514/HEI/D_Artikel-Standard/Right",
+        "container": "HEI_D_Right",
+        "refresh": {
+            "every": 30,
+            "require": [
+                "focus",
+                "visibility",
+                "viewable"
+            ]
+        },
+        "sticky": {
+            "location": "default",
+            "zIndex": 10000
+        },
+        "sizes": [
+            [
+                160,
+                600
+            ],
+            [
+                200,
+                600
+            ],
+            [
+                120,
+                600
+            ],
+            [
+                120,
+                800
+            ],
+            [
+                160,
+                800
+            ],
+            [
+                200,
+                800
+            ]
+        ],
+        "additionalSlotSizes": [
+            [
+                160,
+                1
+            ]
+        ]
+    },
+    {
+        "tags": [
+            "incontent"
+        ],
+        "slotName": "/6514/HEI/D_Artikel-Standard/Stage",
+        "container": "HEI_D_Stage",
+        "sizes": [],
+        "additionalSlotSizes": [
+            [
+                970,
+                2
+            ],
+            [
+                1056,
+                250
+            ]
+        ]
+    },
+    {
+        "bids": [
+            {
+                "bidder": "appnexus",
+                "params": {
+                    "placementId": 14352348
+                }
+            },
+            {
+                "bidder": "ix",
+                "params": {
+                    "siteId": "326400",
+                    "size": [
+                        970,
+                        250
+                    ]
+                }
+            },
+            {
+                "bidder": "pubmatic",
+                "params": {
+                    "publisherId": "158983",
+                    "adSlot": "heise.de"
+                }
+            },
+            {
+                "bidder": "rubicon",
+                "params": {
+                    "accountId": 21770,
+                    "siteId": 305362,
+                    "zoneId": 1540604
+                }
+            },
+            {
+                "bidder": "triplelift",
+                "params": {
+                    "inventoryCode": "heise_desktop_970x250_prebid"
+                }
+            },
+            {
+                "bidder": "teads",
+                "params": {
+                    "pageId": 188381,
+                    "placementId": 203488
+                }
+            },
+            {
+                "bidder": "connectad",
+                "params": {
+                    "siteId": 3111375,
+                    "networkId": 10047
+                }
+            },
+            {
+                "bidder": "adf",
+                "params": {
+                    "mid": 1821035
+                }
+            },
+            {
+                "bidder": "adagio",
+                "params": {
+                    "organizationId": "1399",
+                    "site": "heise-de",
+                    "placement": "HEI_D_Top",
+                    "adUnitElementId": "HEI_D_Top",
+                    "pagetype": "Article",
+                    "environment": "Desktop"
+                }
+            },
+            {
+                "bidder": "stroeerCore",
+                "params": {
+                    "sid": "358356b3-4330-4d21-bbc6-8efff1d92180"
+                }
+            }
+        ],
+        "tags": [
+            "banner"
+        ],
+        "slotName": "/6514/HEI/D_Artikel-Standard/Top",
+        "container": "HEI_D_Top",
+        "sizes": [
+            [
+                728,
+                90
+            ],
+            [
+                800,
+                250
+            ],
+            [
+                970,
+                250
+            ]
+        ],
+        "additionalSlotSizes": [
+            [
+                970,
+                1
+            ],
+            [
+                1104,
+                90
+            ],
+            [
+                1104,
+                250
+            ]
+        ]
+    },
+    {
+        "bids": [
+            {
+                "bidder": "appnexus",
+                "params": {
+                    "placementId": 14352348
+                }
+            },
+            {
+                "bidder": "ix",
+                "params": {
+                    "siteId": "326400",
+                    "size": [
+                        300,
+                        250
+                    ]
+                }
+            },
+            {
+                "bidder": "pubmatic",
+                "params": {
+                    "publisherId": "158983",
+                    "adSlot": "heise.de"
+                }
+            },
+            {
+                "bidder": "rubicon",
+                "params": {
+                    "accountId": 21770,
+                    "siteId": 305362,
+                    "zoneId": 1540604
+                }
+            },
+            {
+                "bidder": "triplelift",
+                "params": {
+                    "inventoryCode": "heise_desktop_300x250_prebid"
+                }
+            },
+            {
+                "bidder": "teads",
+                "params": {
+                    "pageId": 188381,
+                    "placementId": 203488
+                }
+            },
+            {
+                "bidder": "connectad",
+                "params": {
+                    "siteId": 3111376,
+                    "networkId": 10047
+                }
+            },
+            {
+                "bidder": "adf",
+                "params": {
+                    "mid": 1821036
+                }
+            },
+            {
+                "bidder": "adagio",
+                "params": {
+                    "organizationId": "1399",
+                    "site": "heise-de",
+                    "placement": "HEI_D_Incontent-1",
+                    "adUnitElementId": "HEI_D_Incontent-1",
+                    "pagetype": "Article",
+                    "environment": "Desktop"
+                }
+            },
+            {
+                "bidder": "stroeerCore",
+                "params": {
+                    "sid": "bbf102ed-8fb4-4b7f-962f-4ecac10d3d4c"
+                }
+            }
+        ],
+        "tags": [
+            "autorefresh",
+            "sidebar"
+        ],
+        "slotName": "/6514/HEI/D_Artikel-Standard/Incontent-1",
+        "container": "HEI_D_Incontent-1",
+        "refresh": {
+            "every": 30,
+            "require": [
+                "focus",
+                "visibility",
+                "viewable"
+            ]
+        },
+        "sizes": [
+            [
+                300,
+                250
+            ],
+            [
+                300,
+                600
+            ]
+        ],
+        "additionalSlotSizes": [
+            "fluid",
+            [
+                300,
+                3
+            ]
+        ]
+    },
+    {
+        "tags": [
+            "lazy",
+            "incontent"
+        ],
+        "slotName": "/6514/HEI/D_Artikel-Standard/Incontent-2",
+        "container": "HEI_D_Incontent-2",
+        "lazy": {
+            "fetchMarginPercent": 2
+        },
+        "sizes": [],
+        "additionalSlotSizes": [
+            [
+                1,
+                1
+            ],
+            [
+                300,
+                4
+            ],
+            [
+                610,
+                300
+            ]
+        ]
+    },
+    {
+        "bids": [
+            {
+                "bidder": "appnexus",
+                "params": {
+                    "placementId": 14352348
+                }
+            },
+            {
+                "bidder": "ix",
+                "params": {
+                    "siteId": "326400",
+                    "size": [
+                        970,
+                        250
+                    ]
+                }
+            },
+            {
+                "bidder": "pubmatic",
+                "params": {
+                    "publisherId": "158983",
+                    "adSlot": "heise.de"
+                }
+            },
+            {
+                "bidder": "rubicon",
+                "params": {
+                    "accountId": 21770,
+                    "siteId": 305362,
+                    "zoneId": 1540604
+                }
+            },
+            {
+                "bidder": "triplelift",
+                "params": {
+                    "inventoryCode": "heise_desktop_300x600_prebid"
+                }
+            },
+            {
+                "bidder": "connectad",
+                "params": {
+                    "siteId": 3111377,
+                    "networkId": 10047
+                }
+            },
+            {
+                "bidder": "adf",
+                "params": {
+                    "mid": 1821037
+                }
+            },
+            {
+                "bidder": "adagio",
+                "params": {
+                    "organizationId": "1399",
+                    "site": "heise-de",
+                    "placement": "HEI_D_Footer",
+                    "adUnitElementId": "HEI_D_Footer",
+                    "pagetype": "Article",
+                    "environment": "Desktop"
+                }
+            },
+            {
+                "bidder": "stroeerCore",
+                "params": {
+                    "sid": "a1ab649b-8656-4960-a27d-d276f56057cd"
+                }
+            }
+        ],
+        "tags": [
+            "autorefresh",
+            "lazy",
+            "banner"
+        ],
+        "slotName": "/6514/HEI/D_Artikel-Standard/Footer",
+        "container": "HEI_D_Footer",
+        "refresh": {
+            "every": 30,
+            "require": [
+                "focus",
+                "visibility",
+                "viewable"
+            ]
+        },
+        "lazy": {
+            "fetchMarginPercent": 2
+        },
+        "sizes": [
+            [
+                300,
+                250
+            ],
+            [
+                728,
+                90
+            ],
+            [
+                800,
+                250
+            ],
+            [
+                300,
+                600
+            ],
+            [
+                970,
+                250
+            ]
+        ],
+        "additionalSlotSizes": [
+            [
+                301,
+                10
+            ]
+        ]
+    }
+]});adHandler.service.addAdUnits({
+	'1404_10000': [
+    {
+        "bids": [
+            {
+                "bidder": "appnexus",
+                "params": {
+                    "placementId": 14352348
+                }
+            },
+            {
+                "bidder": "ix",
+                "params": {
+                    "siteId": "326400",
+                    "size": [
+                        300,
+                        600
+                    ]
+                }
+            },
+            {
+                "bidder": "pubmatic",
+                "params": {
+                    "publisherId": "158983",
+                    "adSlot": "heise.de"
+                }
+            },
+            {
+                "bidder": "rubicon",
+                "params": {
+                    "accountId": 21770,
+                    "siteId": 305362,
+                    "zoneId": 1540604
+                }
+            },
+            {
+                "bidder": "triplelift",
+                "params": {
+                    "inventoryCode": "heise_desktop_300x600_prebid"
+                }
+            },
+            {
+                "bidder": "teads",
+                "params": {
+                    "pageId": 188381,
+                    "placementId": 203488
+                }
+            },
+            {
+                "bidder": "connectad",
+                "params": {
+                    "siteId": 3111374,
+                    "networkId": 10047
+                }
+            },
+            {
+                "bidder": "adf",
+                "params": {
+                    "mid": 1821079
+                }
+            },
+            {
+                "bidder": "adagio",
+                "params": {
+                    "organizationId": "1399",
+                    "site": "heise-de",
+                    "placement": "HEI_D_Right",
+                    "adUnitElementId": "HEI_D_Right",
+                    "pagetype": "Article",
+                    "environment": "Desktop"
+                }
+            },
+            {
+                "bidder": "stroeerCore",
+                "params": {
+                    "sid": "27ea5f7e-c709-4d05-b611-2332a015ed1f"
+                }
+            }
+        ],
+        "tags": [
+            "autorefresh",
+            "sticky",
+            "sidebar"
+        ],
+        "slotName": "/6514/HEI/D_Artikel-Standard/Right",
+        "container": "HEI_D_Right",
+        "refresh": {
+            "every": 30,
+            "require": [
+                "focus",
+                "visibility",
+                "viewable"
+            ]
+        },
+        "sticky": {
+            "location": "default",
+            "zIndex": 10000
+        },
+        "sizes": [
+            [
+                160,
+                600
+            ],
+            [
+                300,
+                600
+            ],
+            [
+                200,
+                600
+            ],
+            [
+                120,
+                600
+            ],
+            [
+                120,
+                800
+            ],
+            [
+                160,
+                800
+            ],
+            [
+                200,
+                800
+            ]
+        ],
+        "additionalSlotSizes": [
+            [
+                160,
+                1
+            ]
+        ]
+    },
+    {
+        "tags": [
+            "incontent"
+        ],
+        "slotName": "/6514/HEI/D_Artikel-Standard/Stage",
+        "container": "HEI_D_Stage",
+        "sizes": [],
+        "additionalSlotSizes": [
+            [
+                970,
+                2
+            ],
+            [
+                1056,
+                250
+            ]
+        ]
+    },
+    {
+        "bids": [
+            {
+                "bidder": "appnexus",
+                "params": {
+                    "placementId": 14352348
+                }
+            },
+            {
+                "bidder": "ix",
+                "params": {
+                    "siteId": "326400",
+                    "size": [
+                        970,
+                        250
+                    ]
+                }
+            },
+            {
+                "bidder": "pubmatic",
+                "params": {
+                    "publisherId": "158983",
+                    "adSlot": "heise.de"
+                }
+            },
+            {
+                "bidder": "rubicon",
+                "params": {
+                    "accountId": 21770,
+                    "siteId": 305362,
+                    "zoneId": 1540604
+                }
+            },
+            {
+                "bidder": "triplelift",
+                "params": {
+                    "inventoryCode": "heise_desktop_970x250_prebid"
+                }
+            },
+            {
+                "bidder": "teads",
+                "params": {
+                    "pageId": 188381,
+                    "placementId": 203488
+                }
+            },
+            {
+                "bidder": "connectad",
+                "params": {
+                    "siteId": 3111375,
+                    "networkId": 10047
+                }
+            },
+            {
+                "bidder": "adf",
+                "params": {
+                    "mid": 1821035
+                }
+            },
+            {
+                "bidder": "adagio",
+                "params": {
+                    "organizationId": "1399",
+                    "site": "heise-de",
+                    "placement": "HEI_D_Top",
+                    "adUnitElementId": "HEI_D_Top",
+                    "pagetype": "Article",
+                    "environment": "Desktop"
+                }
+            },
+            {
+                "bidder": "stroeerCore",
+                "params": {
+                    "sid": "358356b3-4330-4d21-bbc6-8efff1d92180"
+                }
+            }
+        ],
+        "tags": [
+            "banner"
+        ],
+        "slotName": "/6514/HEI/D_Artikel-Standard/Top",
+        "container": "HEI_D_Top",
+        "sizes": [
+            [
+                728,
+                90
+            ],
+            [
+                800,
+                250
+            ],
+            [
+                970,
+                250
+            ]
+        ],
+        "additionalSlotSizes": [
+            [
+                970,
+                1
+            ],
+            [
+                1104,
+                90
+            ],
+            [
+                1104,
+                250
+            ]
+        ]
+    },
+    {
+        "bids": [
+            {
+                "bidder": "appnexus",
+                "params": {
+                    "placementId": 14352348
+                }
+            },
+            {
+                "bidder": "ix",
+                "params": {
+                    "siteId": "326400",
+                    "size": [
+                        300,
+                        250
+                    ]
+                }
+            },
+            {
+                "bidder": "pubmatic",
+                "params": {
+                    "publisherId": "158983",
+                    "adSlot": "heise.de"
+                }
+            },
+            {
+                "bidder": "rubicon",
+                "params": {
+                    "accountId": 21770,
+                    "siteId": 305362,
+                    "zoneId": 1540604
+                }
+            },
+            {
+                "bidder": "triplelift",
+                "params": {
+                    "inventoryCode": "heise_desktop_300x250_prebid"
+                }
+            },
+            {
+                "bidder": "teads",
+                "params": {
+                    "pageId": 188381,
+                    "placementId": 203488
+                }
+            },
+            {
+                "bidder": "connectad",
+                "params": {
+                    "siteId": 3111376,
+                    "networkId": 10047
+                }
+            },
+            {
+                "bidder": "adf",
+                "params": {
+                    "mid": 1821036
+                }
+            },
+            {
+                "bidder": "adagio",
+                "params": {
+                    "organizationId": "1399",
+                    "site": "heise-de",
+                    "placement": "HEI_D_Incontent-1",
+                    "adUnitElementId": "HEI_D_Incontent-1",
+                    "pagetype": "Article",
+                    "environment": "Desktop"
+                }
+            },
+            {
+                "bidder": "stroeerCore",
+                "params": {
+                    "sid": "bbf102ed-8fb4-4b7f-962f-4ecac10d3d4c"
+                }
+            }
+        ],
+        "tags": [
+            "autorefresh",
+            "sidebar"
+        ],
+        "slotName": "/6514/HEI/D_Artikel-Standard/Incontent-1",
+        "container": "HEI_D_Incontent-1",
+        "refresh": {
+            "every": 30,
+            "require": [
+                "focus",
+                "visibility",
+                "viewable"
+            ]
+        },
+        "sizes": [
+            [
+                300,
+                250
+            ],
+            [
+                300,
+                600
+            ]
+        ],
+        "additionalSlotSizes": [
+            "fluid",
+            [
+                300,
+                3
+            ]
+        ]
+    },
+    {
+        "tags": [
+            "lazy",
+            "incontent"
+        ],
+        "slotName": "/6514/HEI/D_Artikel-Standard/Incontent-2",
+        "container": "HEI_D_Incontent-2",
+        "lazy": {
+            "fetchMarginPercent": 2
+        },
+        "sizes": [],
+        "additionalSlotSizes": [
+            [
+                1,
+                1
+            ],
+            [
+                300,
+                4
+            ],
+            [
+                610,
+                300
+            ]
+        ]
+    },
+    {
+        "bids": [
+            {
+                "bidder": "appnexus",
+                "params": {
+                    "placementId": 14352348
+                }
+            },
+            {
+                "bidder": "ix",
+                "params": {
+                    "siteId": "326400",
+                    "size": [
+                        970,
+                        250
+                    ]
+                }
+            },
+            {
+                "bidder": "pubmatic",
+                "params": {
+                    "publisherId": "158983",
+                    "adSlot": "heise.de"
+                }
+            },
+            {
+                "bidder": "rubicon",
+                "params": {
+                    "accountId": 21770,
+                    "siteId": 305362,
+                    "zoneId": 1540604
+                }
+            },
+            {
+                "bidder": "triplelift",
+                "params": {
+                    "inventoryCode": "heise_desktop_300x600_prebid"
+                }
+            },
+            {
+                "bidder": "connectad",
+                "params": {
+                    "siteId": 3111377,
+                    "networkId": 10047
+                }
+            },
+            {
+                "bidder": "adf",
+                "params": {
+                    "mid": 1821037
+                }
+            },
+            {
+                "bidder": "adagio",
+                "params": {
+                    "organizationId": "1399",
+                    "site": "heise-de",
+                    "placement": "HEI_D_Footer",
+                    "adUnitElementId": "HEI_D_Footer",
+                    "pagetype": "Article",
+                    "environment": "Desktop"
+                }
+            },
+            {
+                "bidder": "stroeerCore",
+                "params": {
+                    "sid": "a1ab649b-8656-4960-a27d-d276f56057cd"
+                }
+            }
+        ],
+        "tags": [
+            "autorefresh",
+            "lazy",
+            "banner"
+        ],
+        "slotName": "/6514/HEI/D_Artikel-Standard/Footer",
+        "container": "HEI_D_Footer",
+        "refresh": {
+            "every": 30,
+            "require": [
+                "focus",
+                "visibility",
+                "viewable"
+            ]
+        },
+        "lazy": {
+            "fetchMarginPercent": 2
+        },
+        "sizes": [
+            [
+                300,
+                250
+            ],
+            [
+                728,
+                90
+            ],
+            [
+                800,
+                250
+            ],
+            [
+                300,
+                600
+            ],
+            [
+                970,
+                250
+            ]
+        ],
+        "additionalSlotSizes": [
+            [
+                301,
+                10
+            ]
+        ]
+    }
+]});; adHandler.service.request(); });
