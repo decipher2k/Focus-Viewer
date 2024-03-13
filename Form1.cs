@@ -32,6 +32,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using VersOne.Epub;
+using WMPLib;
 
 namespace Focus_Browser
 {
@@ -238,8 +239,93 @@ namespace Focus_Browser
 
             }
             }
+
+
+        String getNextSentence()
+        {
+            String ret = "";
+            do { 
+            
+            richTextBox1.Invoke(new Action(() =>
+            {
+
+                int i = 0;
+
+                if (sentenceToolStripMenuItem.CheckState == CheckState.Checked)
+                {
+                    while (offset + i + 2 < richTextBox1.Text.Length && richTextBox1.Text[offset + i] != '\n' && !(richTextBox1.Text[offset + i] == '.' && (richTextBox1.Text[offset + i + 1] == ' ' || richTextBox1.Text[offset + i + 1] == '\r' || richTextBox1.Text[offset + i + 1] == '\n')) && !(richTextBox1.Text[offset + i] == ':' && richTextBox1.Text[offset + i + 1] == ' '))
+                        i++;
+                }
+                else
+                {
+                    while (offset + i + 2 < richTextBox1.Text.Length && richTextBox1.Text[offset + i] != '\n')
+                        i++;
+                }
+                ret = richTextBox1.Text.Substring(offset, i);
+                if (ret == "")
+                    offset++;
+            }));
+            } while (ret == "");
+            
+            return ret;
+        }
+
+        bool newDL = true;
+        int mode = 0;
+        String lastFile = "";
         SpeechSynthesizer synthesizer=new SpeechSynthesizer();
         WMPLib.WindowsMediaPlayer wplayer = new WMPLib.WindowsMediaPlayer();
+        WMPLib.WindowsMediaPlayer wplayer1 = new WMPLib.WindowsMediaPlayer();
+
+
+        void DownloadVoice(String text, String file)
+        {
+        
+
+            // Construct HTTP request to get the file
+            HttpWebRequest httpRequest = (HttpWebRequest)
+                WebRequest.Create("https://api.elevenlabs.io/v1/text-to-speech/" + ElevenLabsSettings.Instance.VoiceID + "/stream?optimize_streaming_latency=3");
+            httpRequest.Method = WebRequestMethods.Http.Post;
+            string postData = "";
+            // Include post data in the HTTP request
+            
+            postData = "{\n  \"model_id\": \"eleven_multilingual_v1\",\n  \"text\": \"" + text + "\",\n  \"voice_settings\": {\n    \"similarity_boost\": 0.5,\n    \"stability\": 0.5  }\n}";
+            
+            httpRequest.ContentLength = postData.Length;
+            httpRequest.ContentType = "application/x-www-form-urlencoded";
+            httpRequest.Headers = new WebHeaderCollection();
+            httpRequest.Accept = "audio/mpeg";
+            httpRequest.ContentType = "application/json";
+            httpRequest.Headers.Add("xi-api-key", ElevenLabsSettings.Instance.getApiKey());
+
+
+            // Write the post data to the HTTP request
+            StreamWriter requestWriter = new StreamWriter(
+                httpRequest.GetRequestStream(),
+                System.Text.Encoding.ASCII);
+            requestWriter.Write(postData);
+            requestWriter.Close();
+
+            HttpWebResponse httpResponse = (HttpWebResponse)httpRequest.GetResponse();
+            Stream httpResponseStream = httpResponse.GetResponseStream();
+
+            // Define buffer and buffer size
+            int bufferSize = 1024;
+            byte[] buffer = new byte[bufferSize];
+            int bytesRead = 0;
+
+            // Read from response and write to file
+            FileStream fileStream;
+            fileStream = File.Create(file);
+            
+
+            while ((bytesRead = httpResponseStream.Read(buffer, 0, bufferSize)) != 0)
+            {
+                fileStream.Write(buffer, 0, bytesRead);
+            }
+            fileStream.Close();
+        }
+
         void SpeakText(string text)
         {
             if(useElevenlabsioToolStripMenuItem.Checked||useWindowsSpeechToolStripMenuItem.Checked)
@@ -270,12 +356,28 @@ namespace Focus_Browser
                     {
                         try
                         {
-                            if (wplayer.controls.currentItem != null && wplayer.controls.currentPosition < wplayer.controls.currentItem.duration)
+
+                            if(!File.Exists("voice.mp3") && !File.Exists("voice_new.mp3"))
                             {
-                                wplayer.controls.stop();
+                                newDL=true;
                             }
-                            if (File.Exists("voice.mp3"))
-                                File.Delete("voice.mp3");
+
+                            if (newDL)
+                            {
+                                DownloadVoice(text.Replace("\"", "").Replace("ä", "&auml;").Replace("ö", "&ouml;").Replace("ü", "&uuml;"), "voice.mp3");
+                            }
+                            else
+                            {
+                                if (!File.Exists("voice.mp3"))
+                                {
+                                    DownloadVoice(getNextSentence().Replace("\"", "").Replace("ä", "&auml;").Replace("ö", "&ouml;").Replace("ü", "&uuml;"), "voice.mp3");
+                                    
+                                }
+                                else
+                                {
+                                    DownloadVoice(getNextSentence().Replace("\"", "").Replace("ä", "&auml;").Replace("ö", "&ouml;").Replace("ü", "&uuml;"), "voice_new.mp3");
+                                }
+                            }
                         }
                         catch
                         {
@@ -284,48 +386,38 @@ namespace Focus_Browser
 
                         try
                         {
-                            // Construct HTTP request to get the file
-                            HttpWebRequest httpRequest = (HttpWebRequest)
-                                WebRequest.Create("https://api.elevenlabs.io/v1/text-to-speech/" + ElevenLabsSettings.Instance.VoiceID+ "/stream?optimize_streaming_latency=3");
-                            httpRequest.Method = WebRequestMethods.Http.Post;
-
-                            // Include post data in the HTTP request
-                            string postData = "{\n  \"model_id\": \"eleven_multilingual_v1\",\n  \"text\": \"" + text.Replace("\"","").Replace("ä","&auml;").Replace("ö", "&ouml;").Replace("ü", "&uuml;") + "\",\n  \"voice_settings\": {\n    \"similarity_boost\": 0.5,\n    \"stability\": 0.5  }\n}";
-                            httpRequest.ContentLength = postData.Length;
-                            httpRequest.ContentType = "application/x-www-form-urlencoded";
-                            httpRequest.Headers = new WebHeaderCollection();
-                            httpRequest.Accept= "audio/mpeg";
-                            httpRequest.ContentType= "application/json";
-                            httpRequest.Headers.Add("xi-api-key", ElevenLabsSettings.Instance.getApiKey());
-                           
-                      
-                            // Write the post data to the HTTP request
-                            StreamWriter requestWriter = new StreamWriter(
-                                httpRequest.GetRequestStream(),
-                                System.Text.Encoding.ASCII);
-                            requestWriter.Write(postData);
-                            requestWriter.Close();
-
-                            HttpWebResponse httpResponse = (HttpWebResponse)httpRequest.GetResponse();
-                            Stream httpResponseStream = httpResponse.GetResponseStream();
-
-                            // Define buffer and buffer size
-                            int bufferSize = 1024;
-                            byte[] buffer = new byte[bufferSize];
-                            int bytesRead = 0;
-
-                            // Read from response and write to file
-                            FileStream fileStream = File.Create("voice.mp3");
-                            while ((bytesRead = httpResponseStream.Read(buffer, 0, bufferSize)) != 0)
-                            {
-                                fileStream.Write(buffer, 0, bytesRead);
-                            }
-                            fileStream.Close();
+                        
 
                             try
                             {
-                                wplayer.URL = "voice.mp3";
-                                wplayer.controls.play();
+
+                                new System.Threading.Thread(() =>
+                                {
+
+                                    if (File.Exists(lastFile))
+                                        File.Delete(lastFile);
+                                    wplayer = new WindowsMediaPlayer();
+                                    /*wplayer.PositionChange += (a, b) =>
+                                    {
+                                        if (wplayer.playState == WMPPlayState.wmppsStopped)
+                                        {
+                                            
+                                        }
+                                    };*/
+
+                                    if (lastFile == "voice.mp3")
+                                        wplayer.URL = "voice_new.mp3";
+                                    else
+                                        wplayer.URL = "voice.mp3";
+                                    lastFile = wplayer.URL;
+                                    wplayer.controls.play();
+                                }).Start();
+
+                                    DownloadVoice(getNextSentence().Replace("\"", "").Replace("ä", "&auml;").Replace("ö", "&ouml;").Replace("ü", "&uuml;"), "voice_new.mp3");
+                                    
+
+
+                                newDL = false;
 
                             }
                             catch (Exception ex)
@@ -335,7 +427,7 @@ namespace Focus_Browser
                         }
                         catch (Exception ex)
                         {
-                               // Debugger.Break();
+                                Debugger.Break();
                         }
 
                        

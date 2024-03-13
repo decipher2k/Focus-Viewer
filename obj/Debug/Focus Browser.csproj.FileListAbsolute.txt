@@ -107,3 +107,119 @@ D:\Focus Browser\bin\Debug\IvanAkcheurov.Commons.xml
 D:\Focus Browser\bin\Debug\IvanAkcheurov.NClassify.xml
 D:\Focus Browser\bin\Debug\IvanAkcheurov.NTextCat.Lib.xml
 D:\Focus Browser\bin\Debug\Microsoft.Speech.dll
+D:\Focus-Viewer\bin\Debug\chrome_100_percent.pak
+D:\Focus-Viewer\bin\Debug\chrome_200_percent.pak
+D:\Focus-Viewer\bin\Debug\chrome_elf.dll
+D:\Focus-Viewer\bin\Debug\d3dcompiler_47.dll
+D:\Focus-Viewer\bin\Debug\icudtl.dat
+D:\Focus-Viewer\bin\Debug\libEGL.dll
+D:\Focus-Viewer\bin\Debug\libGLESv2.dll
+D:\Focus-Viewer\bin\Debug\resources.pak
+D:\Focus-Viewer\bin\Debug\snapshot_blob.bin
+D:\Focus-Viewer\bin\Debug\v8_context_snapshot.bin
+D:\Focus-Viewer\bin\Debug\vk_swiftshader.dll
+D:\Focus-Viewer\bin\Debug\vk_swiftshader_icd.json
+D:\Focus-Viewer\bin\Debug\vulkan-1.dll
+D:\Focus-Viewer\bin\Debug\locales\af.pak
+D:\Focus-Viewer\bin\Debug\locales\am.pak
+D:\Focus-Viewer\bin\Debug\locales\ar.pak
+D:\Focus-Viewer\bin\Debug\locales\bg.pak
+D:\Focus-Viewer\bin\Debug\locales\bn.pak
+D:\Focus-Viewer\bin\Debug\locales\ca.pak
+D:\Focus-Viewer\bin\Debug\locales\cs.pak
+D:\Focus-Viewer\bin\Debug\locales\da.pak
+D:\Focus-Viewer\bin\Debug\locales\de.pak
+D:\Focus-Viewer\bin\Debug\locales\el.pak
+D:\Focus-Viewer\bin\Debug\locales\en-GB.pak
+D:\Focus-Viewer\bin\Debug\locales\en-US.pak
+D:\Focus-Viewer\bin\Debug\locales\es-419.pak
+D:\Focus-Viewer\bin\Debug\locales\es.pak
+D:\Focus-Viewer\bin\Debug\locales\et.pak
+D:\Focus-Viewer\bin\Debug\locales\fa.pak
+D:\Focus-Viewer\bin\Debug\locales\fi.pak
+D:\Focus-Viewer\bin\Debug\locales\fil.pak
+D:\Focus-Viewer\bin\Debug\locales\fr.pak
+D:\Focus-Viewer\bin\Debug\locales\gu.pak
+D:\Focus-Viewer\bin\Debug\locales\he.pak
+D:\Focus-Viewer\bin\Debug\locales\hi.pak
+D:\Focus-Viewer\bin\Debug\locales\hr.pak
+D:\Focus-Viewer\bin\Debug\locales\hu.pak
+D:\Focus-Viewer\bin\Debug\locales\id.pak
+D:\Focus-Viewer\bin\Debug\locales\it.pak
+D:\Focus-Viewer\bin\Debug\locales\ja.pak
+D:\Focus-Viewer\bin\Debug\locales\kn.pak
+D:\Focus-Viewer\bin\Debug\locales\ko.pak
+D:\Focus-Viewer\bin\Debug\locales\lt.pak
+D:\Focus-Viewer\bin\Debug\locales\lv.pak
+D:\Focus-Viewer\bin\Debug\locales\ml.pak
+D:\Focus-Viewer\bin\Debug\locales\mr.pak
+D:\Focus-Viewer\bin\Debug\locales\ms.pak
+D:\Focus-Viewer\bin\Debug\locales\nb.pak
+D:\Focus-Viewer\bin\Debug\locales\nl.pak
+D:\Focus-Viewer\bin\Debug\locales\pl.pak
+D:\Focus-Viewer\bin\Debug\locales\pt-BR.pak
+D:\Focus-Viewer\bin\Debug\locales\pt-PT.pak
+D:\Focus-Viewer\bin\Debug\locales\ro.pak
+D:\Focus-Viewer\bin\Debug\locales\ru.pak
+D:\Focus-Viewer\bin\Debug\locales\sk.pak
+D:\Focus-Viewer\bin\Debug\locales\sl.pak
+D:\Focus-Viewer\bin\Debug\locales\sr.pak
+D:\Focus-Viewer\bin\Debug\locales\sv.pak
+D:\Focus-Viewer\bin\Debug\locales\sw.pak
+D:\Focus-Viewer\bin\Debug\locales\ta.pak
+D:\Focus-Viewer\bin\Debug\locales\te.pak
+D:\Focus-Viewer\bin\Debug\locales\th.pak
+D:\Focus-Viewer\bin\Debug\locales\tr.pak
+D:\Focus-Viewer\bin\Debug\locales\uk.pak
+D:\Focus-Viewer\bin\Debug\locales\ur.pak
+D:\Focus-Viewer\bin\Debug\locales\vi.pak
+D:\Focus-Viewer\bin\Debug\locales\zh-CN.pak
+D:\Focus-Viewer\bin\Debug\locales\zh-TW.pak
+D:\Focus-Viewer\bin\Debug\CefSharp.BrowserSubprocess.Core.dll
+D:\Focus-Viewer\bin\Debug\CefSharp.BrowserSubprocess.Core.pdb
+D:\Focus-Viewer\bin\Debug\CefSharp.BrowserSubprocess.exe
+D:\Focus-Viewer\bin\Debug\CefSharp.BrowserSubprocess.pdb
+D:\Focus-Viewer\bin\Debug\CefSharp.Core.Runtime.dll
+D:\Focus-Viewer\bin\Debug\CefSharp.Core.Runtime.pdb
+D:\Focus-Viewer\bin\Debug\CefSharp.Core.Runtime.xml
+D:\Focus-Viewer\bin\Debug\libcef.dll
+D:\Focus-Viewer\bin\Debug\Focus Reader.exe.config
+D:\Focus-Viewer\bin\Debug\Focus Reader.exe
+D:\Focus-Viewer\bin\Debug\Focus Reader.pdb
+D:\Focus-Viewer\bin\Debug\AxInterop.WMPLib.dll
+D:\Focus-Viewer\bin\Debug\BlowFish.dll
+D:\Focus-Viewer\bin\Debug\CefSharp.Core.dll
+D:\Focus-Viewer\bin\Debug\CefSharp.dll
+D:\Focus-Viewer\bin\Debug\CefSharp.WinForms.dll
+D:\Focus-Viewer\bin\Debug\DeviceId.dll
+D:\Focus-Viewer\bin\Debug\DevOne.Security.Cryptography.BCrypt.dll
+D:\Focus-Viewer\bin\Debug\FMUtils.KeyboardHook.dll
+D:\Focus-Viewer\bin\Debug\HtmlAgilityPack.dll
+D:\Focus-Viewer\bin\Debug\IvanAkcheurov.Commons.dll
+D:\Focus-Viewer\bin\Debug\IvanAkcheurov.NClassify.dll
+D:\Focus-Viewer\bin\Debug\IvanAkcheurov.NTextCat.Lib.dll
+D:\Focus-Viewer\bin\Debug\Microsoft.Speech.dll
+D:\Focus-Viewer\bin\Debug\VersOne.Epub.dll
+D:\Focus-Viewer\bin\Debug\CefSharp.pdb
+D:\Focus-Viewer\bin\Debug\CefSharp.xml
+D:\Focus-Viewer\bin\Debug\CefSharp.Core.pdb
+D:\Focus-Viewer\bin\Debug\CefSharp.Core.xml
+D:\Focus-Viewer\bin\Debug\CefSharp.WinForms.pdb
+D:\Focus-Viewer\bin\Debug\CefSharp.WinForms.xml
+D:\Focus-Viewer\bin\Debug\DeviceId.xml
+D:\Focus-Viewer\bin\Debug\HtmlAgilityPack.pdb
+D:\Focus-Viewer\bin\Debug\HtmlAgilityPack.xml
+D:\Focus-Viewer\bin\Debug\IvanAkcheurov.Commons.xml
+D:\Focus-Viewer\bin\Debug\IvanAkcheurov.NClassify.xml
+D:\Focus-Viewer\bin\Debug\IvanAkcheurov.NTextCat.Lib.xml
+D:\Focus-Viewer\bin\Debug\VersOne.Epub.xml
+D:\Focus-Viewer\obj\Debug\Focus Browser.csproj.AssemblyReference.cache
+D:\Focus-Viewer\obj\Debug\Focus_Browser.Form1.resources
+D:\Focus-Viewer\obj\Debug\Focus_Browser.frmElevenLabsSettings.resources
+D:\Focus-Viewer\obj\Debug\Focus_Browser.Properties.Resources.resources
+D:\Focus-Viewer\obj\Debug\RicherTextBoxDemo.Splash.resources
+D:\Focus-Viewer\obj\Debug\Focus Browser.csproj.GenerateResource.cache
+D:\Focus-Viewer\obj\Debug\Focus Browser.csproj.CoreCompileInputs.cache
+D:\Focus-Viewer\obj\Debug\Focus Br.D99EFF5B.Up2Date
+D:\Focus-Viewer\obj\Debug\Focus Reader.exe
+D:\Focus-Viewer\obj\Debug\Focus Reader.pdb
