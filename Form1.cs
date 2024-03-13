@@ -1,24 +1,31 @@
 ﻿using CefSharp;
+using CefSharp.DevTools.CSS;
 using CefSharp.DevTools.Emulation;
 using CefSharp.DevTools.IO;
 using CefSharp.Handler;
 using CefSharp.WinForms;
 using CefSharp.WinForms.Handler;
 using CefSharp.WinForms.Internals;
+using DeviceId;
+using Elskom.Generic.Libs;
 using FMUtils.KeyboardHook;
 using Focus_Browser.Properties;
 using HtmlAgilityPack;
 using IvanAkcheurov.NTextCat.Lib;
 using Microsoft.Win32;
+using RicherTextBoxDemo;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using System.Speech.Synthesis;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -33,6 +40,39 @@ namespace Focus_Browser
         RankedLanguageIdentifier identifier = null;
         string language = "de";
         public static Form1 Instance;
+        private String _masterPass;
+        public String  masterPass { 
+            get
+            {
+               
+
+                string deviceId = new DeviceIdBuilder()
+                    .AddMachineName()
+                    .AddMacAddress()
+                    .AddOsVersion()
+                    .AddUserName()
+                    .ToString();
+
+                var tmpSource = ASCIIEncoding.ASCII.GetBytes(Process.GetCurrentProcess().StartTime.ToString() + deviceId);
+                var tmpHash = new MD5CryptoServiceProvider().ComputeHash(tmpSource).ToString();
+                BlowFish b = new BlowFish(Encoding.UTF8.GetBytes(tmpHash));
+                return b.DecryptECB(_masterPass);
+            }
+            set 
+            {
+                string deviceId = new DeviceIdBuilder()
+                  .AddMachineName()
+                  .AddMacAddress()
+                  .AddOsVersion()
+                  .AddUserName()
+                  .ToString();
+                var tmpSource = ASCIIEncoding.ASCII.GetBytes(Process.GetCurrentProcess().StartTime.ToString() + deviceId);
+                var tmpHash = new MD5CryptoServiceProvider().ComputeHash(tmpSource).ToString();
+                BlowFish b = new BlowFish(Encoding.UTF8.GetBytes(tmpHash));
+                _masterPass=b.EncryptECB(value);
+            }
+        }
+
         public static string ConvertThreeLetterNameToTwoLetterName(string twoLetterCountryCode)
         {
             if (twoLetterCountryCode == null || twoLetterCountryCode.Length != 3)
@@ -199,17 +239,108 @@ namespace Focus_Browser
             }
             }
         SpeechSynthesizer synthesizer=new SpeechSynthesizer();
-        
+        WMPLib.WindowsMediaPlayer wplayer = new WMPLib.WindowsMediaPlayer();
         void SpeakText(string text)
         {
-            if(textToVoiceToolStripMenuItem.Checked)
-            { 
-                synthesizer.SpeakAsyncCancelAll();
-                synthesizer.Rate = 2;
-                
-                synthesizer.SelectVoice(synthesizer.GetInstalledVoices().Where(a => a.VoiceInfo.Culture.TwoLetterISOLanguageName.ToLower() == language.ToLower() && a.Enabled==true ).First().VoiceInfo.Name);
-          
-                synthesizer.SpeakAsync(text);
+            if(useElevenlabsioToolStripMenuItem.Checked||useWindowsSpeechToolStripMenuItem.Checked)
+            {
+                if (!useElevenlabsioToolStripMenuItem.Checked)
+                {
+
+
+                    try
+                    {
+                        synthesizer.SpeakAsyncCancelAll();
+                        synthesizer.Rate = 2;
+
+                        foreach (InstalledVoice vc in synthesizer.GetInstalledVoices())
+                        {
+                            var v = vc;
+                        }
+
+                        synthesizer.SelectVoice(synthesizer.GetInstalledVoices().Where(a => a.VoiceInfo.Culture.TwoLetterISOLanguageName.ToLower() == language.ToLower() && a.Enabled == true).First().VoiceInfo.Name);
+
+                        synthesizer.SpeakAsync(text);
+                    }
+                    catch { }
+                }
+                else
+                {
+                    if (ElevenLabsSettings.Instance.getApiKey() != "" && ElevenLabsSettings.Instance.VoiceID != "")
+                    {
+                        try
+                        {
+                            if (wplayer.controls.currentItem != null && wplayer.controls.currentPosition < wplayer.controls.currentItem.duration)
+                            {
+                                wplayer.controls.stop();
+                            }
+                            if (File.Exists("voice.mp3"))
+                                File.Delete("voice.mp3");
+                        }
+                        catch
+                        {
+                         //   Debugger.Break();
+                        }
+
+                        try
+                        {
+                            // Construct HTTP request to get the file
+                            HttpWebRequest httpRequest = (HttpWebRequest)
+                                WebRequest.Create("https://api.elevenlabs.io/v1/text-to-speech/" + ElevenLabsSettings.Instance.VoiceID+ "/stream?optimize_streaming_latency=3");
+                            httpRequest.Method = WebRequestMethods.Http.Post;
+
+                            // Include post data in the HTTP request
+                            string postData = "{\n  \"model_id\": \"eleven_multilingual_v1\",\n  \"text\": \"" + text.Replace("\"","").Replace("ä","&auml;").Replace("ö", "&ouml;").Replace("ü", "&uuml;") + "\",\n  \"voice_settings\": {\n    \"similarity_boost\": 0.5,\n    \"stability\": 0.5  }\n}";
+                            httpRequest.ContentLength = postData.Length;
+                            httpRequest.ContentType = "application/x-www-form-urlencoded";
+                            httpRequest.Headers = new WebHeaderCollection();
+                            httpRequest.Accept= "audio/mpeg";
+                            httpRequest.ContentType= "application/json";
+                            httpRequest.Headers.Add("xi-api-key", ElevenLabsSettings.Instance.getApiKey());
+                           
+                      
+                            // Write the post data to the HTTP request
+                            StreamWriter requestWriter = new StreamWriter(
+                                httpRequest.GetRequestStream(),
+                                System.Text.Encoding.ASCII);
+                            requestWriter.Write(postData);
+                            requestWriter.Close();
+
+                            HttpWebResponse httpResponse = (HttpWebResponse)httpRequest.GetResponse();
+                            Stream httpResponseStream = httpResponse.GetResponseStream();
+
+                            // Define buffer and buffer size
+                            int bufferSize = 1024;
+                            byte[] buffer = new byte[bufferSize];
+                            int bytesRead = 0;
+
+                            // Read from response and write to file
+                            FileStream fileStream = File.Create("voice.mp3");
+                            while ((bytesRead = httpResponseStream.Read(buffer, 0, bufferSize)) != 0)
+                            {
+                                fileStream.Write(buffer, 0, bytesRead);
+                            }
+                            fileStream.Close();
+
+                            try
+                            {
+                                wplayer.URL = "voice.mp3";
+                                wplayer.controls.play();
+
+                            }
+                            catch (Exception ex)
+                            {
+                                Debugger.Break();
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                               // Debugger.Break();
+                        }
+
+                       
+                    }
+                }
             }
 
         }
@@ -499,6 +630,12 @@ namespace Focus_Browser
         }
         private void Form1_Load(object sender, EventArgs e)
         {
+            ///new Splash().ShowDialog();
+            if (ElevenLabsSettings.loadData())
+            {
+                masterPass=Microsoft.VisualBasic.Interaction.InputBox("Decryption Password", "Password", " ").Trim();                
+            }
+
             synthesizer.SetOutputToDefaultAudioDevice();
             new System.Threading.Thread(updateThread).Start();
             sHosts = File.ReadAllLines(".\\hosts");
@@ -730,7 +867,7 @@ namespace Focus_Browser
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
-
+            
         }
 
         private void panel2_Paint_1(object sender, PaintEventArgs e)
@@ -784,6 +921,8 @@ namespace Focus_Browser
         {
             sentenceToolStripMenuItem.Checked = false;
             paragraphToolStripMenuItem.Checked = true;
+
+           
         }
 
         private void highlightAlsoSentenceeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -833,6 +972,49 @@ namespace Focus_Browser
                     if (ebookContent.Count > 0)
                         text = ebookContent[0];
                 }
+            }
+        }
+
+        private void elevenlabsioSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new frmElevenLabsSettings().ShowDialog();
+        }
+
+        private void useElevenlabsioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (useElevenlabsioToolStripMenuItem.CheckState != CheckState.Checked)
+            {
+                if (ElevenLabsSettings.Instance.getApiKey() == "")
+                {
+                    if (new frmElevenLabsSettings().ShowDialog() == DialogResult.OK)
+                    {
+                        useElevenlabsioToolStripMenuItem.Checked = true;
+                        useWindowsSpeechToolStripMenuItem.Checked = false;
+                    }
+                }
+                else
+                {
+                    useElevenlabsioToolStripMenuItem.Checked = true;
+                    useWindowsSpeechToolStripMenuItem.Checked = false;
+                }
+            }
+            else
+            {
+                useElevenlabsioToolStripMenuItem.Checked = false;
+            }
+
+        }
+
+        private void useWindowsSpeechToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (useWindowsSpeechToolStripMenuItem.CheckState != CheckState.Checked)
+            { 
+                useElevenlabsioToolStripMenuItem.Checked = false;
+                useWindowsSpeechToolStripMenuItem.Checked = true;
+            }
+            else
+            {
+                useWindowsSpeechToolStripMenuItem.Checked= false;
             }
         }
     }

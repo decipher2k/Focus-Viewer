@@ -46,6 +46,10 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.textToVoiceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.useElevenlabsioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.elevenlabsioSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.useWindowsSpeechToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -217,10 +221,40 @@
             // 
             // textToVoiceToolStripMenuItem
             // 
-            this.textToVoiceToolStripMenuItem.CheckOnClick = true;
+            this.textToVoiceToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.useWindowsSpeechToolStripMenuItem,
+            this.toolStripMenuItem2,
+            this.useElevenlabsioToolStripMenuItem,
+            this.elevenlabsioSettingsToolStripMenuItem});
             this.textToVoiceToolStripMenuItem.Name = "textToVoiceToolStripMenuItem";
             this.textToVoiceToolStripMenuItem.Size = new System.Drawing.Size(270, 38);
             this.textToVoiceToolStripMenuItem.Text = "Text to Voice";
+            // 
+            // useElevenlabsioToolStripMenuItem
+            // 
+            this.useElevenlabsioToolStripMenuItem.Name = "useElevenlabsioToolStripMenuItem";
+            this.useElevenlabsioToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
+            this.useElevenlabsioToolStripMenuItem.Text = "Use Elevenlabs.io";
+            this.useElevenlabsioToolStripMenuItem.Click += new System.EventHandler(this.useElevenlabsioToolStripMenuItem_Click);
+            // 
+            // elevenlabsioSettingsToolStripMenuItem
+            // 
+            this.elevenlabsioSettingsToolStripMenuItem.Name = "elevenlabsioSettingsToolStripMenuItem";
+            this.elevenlabsioSettingsToolStripMenuItem.Size = new System.Drawing.Size(323, 38);
+            this.elevenlabsioSettingsToolStripMenuItem.Text = "Elevenlabs.io Settings";
+            this.elevenlabsioSettingsToolStripMenuItem.Click += new System.EventHandler(this.elevenlabsioSettingsToolStripMenuItem_Click);
+            // 
+            // useWindowsSpeechToolStripMenuItem
+            // 
+            this.useWindowsSpeechToolStripMenuItem.Name = "useWindowsSpeechToolStripMenuItem";
+            this.useWindowsSpeechToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
+            this.useWindowsSpeechToolStripMenuItem.Text = "Use Windows Speech";
+            this.useWindowsSpeechToolStripMenuItem.Click += new System.EventHandler(this.useWindowsSpeechToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(321, 6);
             // 
             // Form1
             // 
@@ -264,6 +298,10 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem textToVoiceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem useElevenlabsioToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem elevenlabsioSettingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem useWindowsSpeechToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
     }
 }
 
