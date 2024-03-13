@@ -13,6 +13,7 @@ using Focus_Browser.Properties;
 using HtmlAgilityPack;
 using IvanAkcheurov.NTextCat.Lib;
 using Microsoft.Win32;
+using Microsoft.Win32.SafeHandles;
 using RicherTextBoxDemo;
 using System;
 using System.Collections.Generic;
@@ -92,7 +93,7 @@ namespace Focus_Browser
                 }
             }
 
-            throw new ArgumentException("Could not get country code");
+            return "en";
         }
         int offset = 0;
         public Form1()
@@ -145,7 +146,7 @@ namespace Focus_Browser
 
                 if (_text != tmp)
                 {
-
+                    
                     _text = tmp;
                     richTextBox1.Invoke(new Action(() => { richTextBox1.Text = _text; }));
                     offset = 0;
@@ -198,7 +199,7 @@ namespace Focus_Browser
                             }
 
 
-                            richTextBox1.ScrollToCaret();
+                            
 
                             richTextBox1.SelectionStart = start;
                             richTextBox1.SelectionLength = end - start;
@@ -231,11 +232,13 @@ namespace Focus_Browser
 
                             language = ConvertThreeLetterNameToTwoLetterName(mostCertainLanguage.Item1.Iso639_3);
                             SpeakText(richTextBox1.SelectedText);
+                            richTextBox1.ScrollToCaret();
                             richTextBox1.Select(0, 0);
 
                     }));
                     }
-            }
+                    
+                }
 
             }
             }
@@ -337,7 +340,7 @@ namespace Focus_Browser
                     try
                     {
                         synthesizer.SpeakAsyncCancelAll();
-                        synthesizer.Rate = 2;
+                        synthesizer.Rate =1;
 
                         foreach (InstalledVoice vc in synthesizer.GetInstalledVoices())
                         {
@@ -470,6 +473,7 @@ namespace Focus_Browser
             {
                 chromiumWebBrowser1.Load(toolStripTextBox1.Text);
                 chromiumWebBrowser1.Focus();
+                
             }
 
         }
@@ -492,6 +496,7 @@ namespace Focus_Browser
 
          if(e.IsLoading==false)
             {
+                
                 if (!e.IsLoading) // browser.CanExecuteJavascriptInMainFrame == TRUE !
                 {
                     JavascriptResponse response =
@@ -529,6 +534,7 @@ namespace Focus_Browser
 
                     }
                     text = txt;
+                   
                 }
              
             }
@@ -669,7 +675,7 @@ namespace Focus_Browser
 
         async void chromiumWebBrowser1_MouseUp(object sender, MouseEventArgs e)
         {
-         
+            handleKeyboard = true;
 
         }
         public class CustomRequestHandler : CefSharp.Handler.RequestHandler
@@ -720,6 +726,22 @@ namespace Focus_Browser
                 return true;
             }
         }
+
+        static bool handleKeyboard = true;
+
+        class keyboardHandler : IKeyboardHandler
+        {
+            public bool OnKeyEvent(IWebBrowser chromiumWebBrowser, IBrowser browser, KeyType type, int windowsKeyCode, int nativeKeyCode, CefEventFlags modifiers, bool isSystemKey)
+            {
+                return !handleKeyboard;
+            }
+
+            public bool OnPreKeyEvent(IWebBrowser chromiumWebBrowser, IBrowser browser, KeyType type, int windowsKeyCode, int nativeKeyCode, CefEventFlags modifiers, bool isSystemKey, ref bool isKeyboardShortcut)
+            {
+                return !handleKeyboard;
+            }
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             ///new Splash().ShowDialog();
@@ -763,7 +785,13 @@ namespace Focus_Browser
             this.chromiumWebBrowser1.LoadingStateChanged += chromiumWebBrowser1_LoadingStateChanged_1;
             this.chromiumWebBrowser1.FrameLoadEnd += chromiumWebBrowser1_FrameLoadEnd;
             this.chromiumWebBrowser1.MouseUp += chromiumWebBrowser1_MouseUp;
+
+            this.chromiumWebBrowser1.KeyboardHandler = new keyboardHandler();
+            this.chromiumWebBrowser1.MouseMove+= (a, b) => handleKeyboard = true;
+
+            this.chromiumWebBrowser1.Click += (a,b) => handleKeyboard = true;
             
+
             this.chromiumWebBrowser1.Parent = panel1;
 
             chromiumWebBrowser1.LifeSpanHandler = new LifeSpanHandler();
@@ -789,7 +817,16 @@ namespace Focus_Browser
 
             if(!this.toolStripTextBox1.Focused && this.ContainsFocus &&e.Key==Keys.Right)
             {
-                keyPress();
+                handleKeyboard = false;
+                keyPress();                
+            }
+            else if(e.Key != Keys.Right && handleKeyboard==false && this.chromiumWebBrowser1.Focused)
+            {
+                handleKeyboard= true;
+                if(e.isShiftPressed)
+                    SendKeys.Send(e.Key.ToString());
+                else
+                    SendKeys.Send(e.Key.ToString().ToLower());
             }
          /*   hook = new Hook("test");
             hook.KeyUpEvent += keyPress;
@@ -896,7 +933,7 @@ namespace Focus_Browser
                     {
                         if (sentenceToolStripMenuItem.CheckState==CheckState.Checked)
                         {
-                            while (offset + i + 2 < richTextBox1.Text.Length && richTextBox1.Text[offset + i] != '\n' && !(richTextBox1.Text[offset + i] == '.' && (richTextBox1.Text[offset + i + 1] == ' ' || richTextBox1.Text[offset + i + 1] == '\r' || richTextBox1.Text[offset + i + 1] == '\n')) && !(richTextBox1.Text[offset + i] == ':' && richTextBox1.Text[offset + i + 1] == ' '))
+                            while (offset + i + 2 < richTextBox1.Text.Length && richTextBox1.Text[offset + i] != '\n' && !(richTextBox1.Text[offset + i] == '.' && (richTextBox1.Text[offset + i + 1] == ' ') && richTextBox1.Text[offset + i + 1] != '\r' && richTextBox1.Text[offset + i + 1] != '\n') && !(richTextBox1.Text[offset + i] == ':' && richTextBox1.Text[offset + i + 1] == ' '))
                                 i++;
                         }
                         else
@@ -953,6 +990,7 @@ namespace Focus_Browser
                     SpeakText(richTextBox1.SelectedText);
 
                     richTextBox1.Select(0, 0);
+                   
                 }
             }));
         }
@@ -994,8 +1032,7 @@ namespace Focus_Browser
 
         private void toolStripButton3_Click_1(object sender, EventArgs e)
         {
-            chromiumWebBrowser1.Load(toolStripTextBox1.Text);
-            chromiumWebBrowser1.Focus();
+            chromiumWebBrowser1.Load(toolStripTextBox1.Text);            
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)

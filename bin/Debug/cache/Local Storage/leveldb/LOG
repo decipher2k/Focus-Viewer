@@ -1,15 +1,17 @@
-2024/03/13-04:04:11.669 7560 Reusing MANIFEST D:\Focus-Viewer\bin\Debug\cache\Local Storage\leveldb/MANIFEST-000001
-2024/03/13-04:04:11.672 7560 Recovering log #479
-2024/03/13-04:04:11.674 7560 Reusing old log D:\Focus-Viewer\bin\Debug\cache\Local Storage\leveldb/000479.log 
-2024/03/13-04:04:26.557 74e8 Level-0 table #483: started
-2024/03/13-04:04:26.560 74e8 Level-0 table #483: 27481 bytes OK
-2024/03/13-04:04:26.561 74e8 Delete type=0 #479
-2024/03/13-04:04:26.561 74e8 Compacting 4@0 + 1@1 files
-2024/03/13-04:04:26.567 74e8 Generated table #484@0: 172 keys, 208589 bytes
-2024/03/13-04:04:26.568 74e8 Compacted 4@0 + 1@1 files => 208589 bytes
-2024/03/13-04:04:26.568 74e8 compacted to: files[ 0 1 0 0 0 0 0 ]
-2024/03/13-04:04:26.568 74e8 Delete type=2 #472
-2024/03/13-04:04:26.568 74e8 Delete type=2 #474
-2024/03/13-04:04:26.568 74e8 Delete type=2 #477
-2024/03/13-04:04:26.568 74e8 Delete type=2 #480
-2024/03/13-04:04:26.568 74e8 Delete type=2 #483
+2024/03/13-04:56:28.582 8cd4 Reusing MANIFEST D:\Focus-Viewer\bin\Debug\cache\Local Storage\leveldb/MANIFEST-000001
+2024/03/13-04:56:28.584 8cd4 Recovering log #614
+2024/03/13-04:56:28.584 8cd4 Level-0 table #617: started
+2024/03/13-04:56:28.590 8cd4 Level-0 table #617: 31498 bytes OK
+2024/03/13-04:56:28.592 8cd4 Delete type=0 #614
+2024/03/13-04:56:28.593 890c Compacting 4@0 + 1@1 files
+2024/03/13-04:56:28.601 890c Generated table #619@0: 172 keys, 211233 bytes
+2024/03/13-04:56:28.601 890c Compacted 4@0 + 1@1 files => 211233 bytes
+2024/03/13-04:56:28.601 890c compacted to: files[ 0 1 0 0 0 0 0 ]
+2024/03/13-04:56:28.602 890c Delete type=2 #606
+2024/03/13-04:56:28.602 890c Delete type=2 #609
+2024/03/13-04:56:28.602 890c Delete type=2 #612
+2024/03/13-04:56:28.602 890c Delete type=2 #615
+2024/03/13-04:56:28.602 890c Delete type=2 #617
+2024/03/13-04:56:38.660 890c Level-0 table #621: started
+2024/03/13-04:56:38.663 890c Level-0 table #621: 23893 bytes OK
+2024/03/13-04:56:38.664 890c Delete type=0 #618
