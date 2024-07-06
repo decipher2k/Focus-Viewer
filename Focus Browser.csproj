@@ -57,7 +57,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>icons8-focus-64.ico</ApplicationIcon>
+    <ApplicationIcon>eye-tracking.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -200,6 +200,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="eye-tracking.ico" />
     <Content Include="icons8-focus-64.ico" />
   </ItemGroup>
   <ItemGroup>

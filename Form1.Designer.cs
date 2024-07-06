@@ -194,7 +194,7 @@
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(280, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(356, 6);
             // 
             // textToVoiceToolStripMenuItem
             // 
@@ -204,7 +204,7 @@
             this.useElevenlabsioToolStripMenuItem,
             this.elevenlabsioSettingsToolStripMenuItem});
             this.textToVoiceToolStripMenuItem.Name = "textToVoiceToolStripMenuItem";
-            this.textToVoiceToolStripMenuItem.Size = new System.Drawing.Size(283, 44);
+            this.textToVoiceToolStripMenuItem.Size = new System.Drawing.Size(359, 44);
             this.textToVoiceToolStripMenuItem.Text = "Text to Voice";
             // 
             // useWindowsSpeechToolStripMenuItem
