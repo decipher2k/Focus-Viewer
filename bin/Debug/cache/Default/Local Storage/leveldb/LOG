@@ -1,5 +1,0 @@
-2024/07/06-17:19:58.631 1270c Creating DB C:\Users\denni\Documents\GitHub\Focus-Viewer\bin\Debug\cache\Default\Local Storage\leveldb since it was missing.
-2024/07/06-17:19:58.646 1270c Reusing MANIFEST C:\Users\denni\Documents\GitHub\Focus-Viewer\bin\Debug\cache\Default\Local Storage\leveldb/MANIFEST-000001
-2024/07/06-17:20:16.133 14044 Level-0 table #5: started
-2024/07/06-17:20:16.137 14044 Level-0 table #5: 19479 bytes OK
-2024/07/06-17:20:16.138 14044 Delete type=0 #3
