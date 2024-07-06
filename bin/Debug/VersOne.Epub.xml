@@ -230,6 +230,11 @@
             A file with 'image/webp' MIME type.
             </summary>
         </member>
+        <member name="F:VersOne.Epub.EpubContentType.IMAGE_BMP">
+            <summary>
+            A file with 'image/bmp' MIME type.
+            </summary>
+        </member>
         <member name="F:VersOne.Epub.EpubContentType.FONT_TRUETYPE">
             <summary>
             A file with either 'font/truetype', 'font/ttf', or 'application/x-font-truetype' MIME type.

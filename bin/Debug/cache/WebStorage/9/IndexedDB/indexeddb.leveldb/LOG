@@ -1,6 +1,0 @@
-2024/03/13-03:51:22.799 683c Creating DB D:\Focus-Viewer\bin\Debug\cache\WebStorage\9\IndexedDB\indexeddb.leveldb since it was missing.
-2024/03/13-03:51:22.808 683c Reusing MANIFEST D:\Focus-Viewer\bin\Debug\cache\WebStorage\9\IndexedDB\indexeddb.leveldb/MANIFEST-000001
-2024/03/13-03:51:23.217 6a2c Level-0 table #5: started
-2024/03/13-03:51:23.225 6a2c Level-0 table #5: 3394 bytes OK
-2024/03/13-03:51:23.226 6a2c Delete type=0 #3
-2024/03/13-03:51:23.227 6a2c Manual compaction at level-0 from '\x00\x02\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x03\x00\x00\x00' @ 0 : 0; will stop at (end)

@@ -10,6 +10,11 @@
             using command-line switches.
             </summary>
         </member>
+        <member name="M:CefSharp.WinForms.CefSettings.#ctor">
+            <summary>
+            Intialize with default values
+            </summary>
+        </member>
         <member name="T:CefSharp.WinForms.ChromiumWebBrowser">
             <summary>
             ChromiumWebBrowser is the WinForms web browser control
@@ -370,7 +375,7 @@
             <param name="browser">browser</param>
             <returns>returns the assocaited <see cref="T:CefSharp.WinForms.ChromiumWebBrowser"/> or null if Disposed or no host found.</returns>
         </member>
-        <member name="F:CefSharp.WinForms.ChromiumWebBrowser.canExecuteJavascriptInMainFrameId">
+        <member name="F:CefSharp.WinForms.ChromiumWebBrowser.canExecuteJavascriptInMainFrameChildProcessId">
             <summary>
             Used as workaround for issue https://github.com/cefsharp/CefSharp/issues/3021
             </summary>

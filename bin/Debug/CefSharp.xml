@@ -4,6 +4,29 @@
         <name>CefSharp</name>
     </assembly>
     <members>
+        <member name="T:CefSharp.AcceleratedPaintInfo">
+            <summary>
+            Class representing accelerated paint info.
+            </summary>
+        </member>
+        <member name="P:CefSharp.AcceleratedPaintInfo.SharedTextureHandle">
+            <summary>
+            Handle for the shared texture. The shared texture is instantiated
+            without a keyed mutex.
+            </summary>
+        </member>
+        <member name="P:CefSharp.AcceleratedPaintInfo.Format">
+            <summary>
+            The pixel format of the texture.
+            </summary>
+        </member>
+        <member name="M:CefSharp.AcceleratedPaintInfo.#ctor(System.IntPtr,CefSharp.Enums.ColorType)">
+            <summary>
+            AcceleratedPaintInfo
+            </summary>
+            <param name="sharedTextureHandle">Handle to the shared texture resource</param>
+            <param name="format">The pixel format of the shared texture resource</param>
+        </member>
         <member name="T:CefSharp.AsyncExtensions">
             <summary>
             Async extensions for different interfaces
@@ -946,6 +969,20 @@
             browser when a DOM node (or no node) gets focus. The default is
             false.
             </summary>
+        </member>
+        <member name="P:CefSharp.CefSharpSettings.RuntimeStyle">
+            <summary>
+            CefSharp.WinForms and CefSharp.Wpf.HwndHost ONLY!
+            The default is to create <see cref="F:CefSharp.CefRuntimeStyle.Alloy"/>
+            styled browsers, those wanting to use <see cref="F:CefSharp.CefRuntimeStyle.Chrome"/>
+            styled browsers can set this property.
+            </summary>
+            <remarks>
+            Sets the <see cref="P:CefSharp.IWindowInfo.RuntimeStyle"/> property.
+            You can customise this yourself on a per browser basis
+            by overriding the ChromiumWebBrowser.CreateBrowserWindowInfo
+            property.
+            </remarks>
         </member>
         <member name="T:CefSharp.Cookie">
             <summary>
@@ -3706,6 +3743,52 @@
             Continue asynchronously (usually via a callback).
             </summary>
         </member>
+        <member name="T:CefSharp.CefRuntimeStyle">
+             <summary>
+             CEF supports both a Chrome runtime (based on the Chrome UI layer) and an
+             Alloy runtime (based on the Chromium content layer). The Chrome runtime
+             provides the full Chrome UI and browser functionality whereas the Alloy
+             runtime provides less default browser functionality but adds additional
+             client callbacks and support for windowless (off-screen) rendering. For
+             additional comparative details on runtime types see
+             https://bitbucket.org/chromiumembedded/cef/wiki/Architecture.md#markdown-header-cef3
+            
+             Each runtime is composed of a bootstrap component and a style component. The
+             bootstrap component is configured via CefSettings.ChromeRuntime and cannot
+             be changed after CefInitialize. The style component is individually
+             configured for each window/browser at creation time and, in combination with
+             the Chrome bootstrap, different styles can be mixed during runtime.
+            
+             Windowless rendering will always use Alloy style. Windowed rendering with a
+             default window or client-provided parent window can configure the style via
+             CefWindowInfo.runtime_style. Windowed rendering with the Views framework can
+             configure the style via CefWindowDelegate::GetWindowRuntimeStyle and
+             CefBrowserViewDelegate::GetBrowserRuntimeStyle. Alloy style Windows with the
+             Views framework can host only Alloy style BrowserViews but Chrome style
+             Windows can host both style BrowserViews. Additionally, a Chrome style
+             Window can host at most one Chrome style BrowserView but potentially
+             multiple Alloy style BrowserViews. See CefWindowInfo.runtime_style
+             documentation for any additional platform-specific limitations.
+             </summary>
+        </member>
+        <member name="F:CefSharp.CefRuntimeStyle.Default">
+            <summary>
+            Use the default runtime style. The default style will match the
+            CefSettings.ChromeRuntime value in most cases. See above documentation
+            for exceptions.
+            </summary>
+        </member>
+        <member name="F:CefSharp.CefRuntimeStyle.Chrome">
+            <summary>
+            Use the Chrome runtime style. Only supported with the Chrome runtime.
+            </summary>
+        </member>
+        <member name="F:CefSharp.CefRuntimeStyle.Alloy">
+            <summary>
+            Use the Alloy runtime style. Supported with both the Alloy and Chrome
+            runtime.
+            </summary>
+        </member>
         <member name="T:CefSharp.CefState">
             <summary>
             Represents the state of a setting.
@@ -5642,10 +5725,10 @@
             Implement this interface to handle dialog events. The methods of this class will be called on the CEF UI thread.
             </summary>
         </member>
-        <member name="M:CefSharp.Handler.DialogHandler.CefSharp#IDialogHandler#OnFileDialog(CefSharp.IWebBrowser,CefSharp.IBrowser,CefSharp.CefFileDialogMode,System.String,System.String,System.Collections.Generic.List{System.String},CefSharp.IFileDialogCallback)">
+        <member name="M:CefSharp.Handler.DialogHandler.CefSharp#IDialogHandler#OnFileDialog(CefSharp.IWebBrowser,CefSharp.IBrowser,CefSharp.CefFileDialogMode,System.String,System.String,System.Collections.Generic.IReadOnlyCollection{System.String},System.Collections.Generic.IReadOnlyCollection{System.String},System.Collections.Generic.IReadOnlyCollection{System.String},CefSharp.IFileDialogCallback)">
             <inheritdoc/>
         </member>
-        <member name="M:CefSharp.Handler.DialogHandler.OnFileDialog(CefSharp.IWebBrowser,CefSharp.IBrowser,CefSharp.CefFileDialogMode,System.String,System.String,System.Collections.Generic.List{System.String},CefSharp.IFileDialogCallback)">
+        <member name="M:CefSharp.Handler.DialogHandler.OnFileDialog(CefSharp.IWebBrowser,CefSharp.IBrowser,CefSharp.CefFileDialogMode,System.String,System.String,System.Collections.Generic.IReadOnlyCollection{System.String},System.Collections.Generic.IReadOnlyCollection{System.String},System.Collections.Generic.IReadOnlyCollection{System.String},CefSharp.IFileDialogCallback)">
             <summary>
             Runs a file chooser dialog. 
             </summary>
@@ -5668,6 +5751,12 @@
             (a) valid lower-cased MIME types (e.g. "text/*" or "image/*"),
             (b) individual file extensions (e.g. ".txt" or ".png"),
             (c) combined description and file extension delimited using "|" and ";" (e.g. "Image Types|.png;.gif;.jpg").</param>
+            <param name="acceptExtensions">provides the semicolon-delimited expansion of MIME
+            types to file extensions (if known, or empty string otherwise).</param>
+            <param name="acceptDescriptions">
+            Provides the descriptions for MIME types (if known, or empty string otherwise).
+            For example, the 'image/*' mime type might have extensions ".png;.jpg;.bmp;..." and description 'Image Files'
+            </param>
             <param name="callback">Callback interface for asynchronous continuation of file dialog requests.</param>
             <returns>To display a custom dialog return true. To display the default dialog return false.</returns>
         </member>
@@ -5817,13 +5906,7 @@
             <returns>Return true to proceed with the download or false to cancel the download.</returns>
         </member>
         <member name="M:CefSharp.Handler.DownloadHandler.CefSharp#IDownloadHandler#OnBeforeDownload(CefSharp.IWebBrowser,CefSharp.IBrowser,CefSharp.DownloadItem,CefSharp.IBeforeDownloadCallback)">
-            <summary>
-            Called before a download begins.
-            </summary>
-            <param name="chromiumWebBrowser">the ChromiumWebBrowser control</param>
-            <param name="browser">The browser instance</param>
-            <param name="downloadItem">Represents the file being downloaded.</param>
-            <param name="callback">Callback interface used to asynchronously continue a download.</param>
+            <inheritdoc/>
         </member>
         <member name="M:CefSharp.Handler.DownloadHandler.OnBeforeDownload(CefSharp.IWebBrowser,CefSharp.IBrowser,CefSharp.DownloadItem,CefSharp.IBeforeDownloadCallback)">
             <summary>
@@ -5833,6 +5916,10 @@
             <param name="browser">The browser instance</param>
             <param name="downloadItem">Represents the file being downloaded.</param>
             <param name="callback">Callback interface used to asynchronously continue a download.</param>
+            <returns>Return true and execute <paramref name="callback"/> either
+            asynchronously or in this method to continue or cancel the download.
+            Return false to proceed with default handling (cancel with Alloy style,
+            download shelf with Chrome style).</returns>
         </member>
         <member name="M:CefSharp.Handler.DownloadHandler.CefSharp#IDownloadHandler#OnDownloadUpdated(CefSharp.IWebBrowser,CefSharp.IBrowser,CefSharp.DownloadItem,CefSharp.IDownloadItemCallback)">
             <summary>
@@ -6964,16 +7051,18 @@
             <param name="chromiumWebBrowser">The ChromiumWebBrowser control.</param>
             <param name="browser">the browser object.</param>
         </member>
-        <member name="M:CefSharp.Handler.RequestHandler.CefSharp#IRequestHandler#OnRenderProcessTerminated(CefSharp.IWebBrowser,CefSharp.IBrowser,CefSharp.CefTerminationStatus)">
+        <member name="M:CefSharp.Handler.RequestHandler.CefSharp#IRequestHandler#OnRenderProcessTerminated(CefSharp.IWebBrowser,CefSharp.IBrowser,CefSharp.CefTerminationStatus,System.Int32,System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:CefSharp.Handler.RequestHandler.OnRenderProcessTerminated(CefSharp.IWebBrowser,CefSharp.IBrowser,CefSharp.CefTerminationStatus)">
+        <member name="M:CefSharp.Handler.RequestHandler.OnRenderProcessTerminated(CefSharp.IWebBrowser,CefSharp.IBrowser,CefSharp.CefTerminationStatus,System.Int32,System.String)">
             <summary>
             Called when the render process terminates unexpectedly.
             </summary>
             <param name="chromiumWebBrowser">The ChromiumWebBrowser control.</param>
             <param name="browser">the browser object.</param>
             <param name="status">indicates how the process terminated.</param>
+            <param name="errorCode">error code</param>
+            <param name="errorMessage">error message</param>
         </member>
         <member name="M:CefSharp.Handler.RequestHandler.CefSharp#IRequestHandler#OnDocumentAvailableInMainFrame(CefSharp.IWebBrowser,CefSharp.IBrowser)">
             <inheritdoc/>
@@ -7454,7 +7543,7 @@
             Implement this interface to handle dialog events. The methods of this class will be called on the CEF UI thread.
             </summary>
         </member>
-        <member name="M:CefSharp.IDialogHandler.OnFileDialog(CefSharp.IWebBrowser,CefSharp.IBrowser,CefSharp.CefFileDialogMode,System.String,System.String,System.Collections.Generic.List{System.String},CefSharp.IFileDialogCallback)">
+        <member name="M:CefSharp.IDialogHandler.OnFileDialog(CefSharp.IWebBrowser,CefSharp.IBrowser,CefSharp.CefFileDialogMode,System.String,System.String,System.Collections.Generic.IReadOnlyCollection{System.String},System.Collections.Generic.IReadOnlyCollection{System.String},System.Collections.Generic.IReadOnlyCollection{System.String},CefSharp.IFileDialogCallback)">
             <summary>
             Runs a file chooser dialog. 
             </summary>
@@ -7477,6 +7566,12 @@
             (a) valid lower-cased MIME types (e.g. "text/*" or "image/*"),
             (b) individual file extensions (e.g. ".txt" or ".png"),
             (c) combined description and file extension delimited using "|" and ";" (e.g. "Image Types|.png;.gif;.jpg").</param>
+            <param name="acceptExtensions">provides the semicolon-delimited expansion of MIME
+            types to file extensions (if known, or empty string otherwise).</param>
+            <param name="acceptDescriptions">
+            Provides the descriptions for MIME types (if known, or empty string otherwise).
+            For example, the 'image/*' mime type might have extensions ".png;.jpg;.bmp;..." and description 'Image Files'
+            </param>
             <param name="callback">Callback interface for asynchronous continuation of file dialog requests.</param>
             <returns>To display a custom dialog return true. To display the default dialog return false.</returns>
         </member>
@@ -7600,6 +7695,10 @@
             <param name="browser">The browser instance</param>
             <param name="downloadItem">Represents the file being downloaded.</param>
             <param name="callback">Callback interface used to asynchronously continue a download.</param>
+            <returns>Return true and execute <paramref name="callback"/> either
+            asynchronously or in this method to continue or cancel the download.
+            Return false to proceed with default handling (cancel with Alloy style,
+            download shelf with Chrome style).</returns>
         </member>
         <member name="M:CefSharp.IDownloadHandler.OnDownloadUpdated(CefSharp.IWebBrowser,CefSharp.IBrowser,CefSharp.DownloadItem,CefSharp.IDownloadItemCallback)">
             <summary>
@@ -8378,13 +8477,15 @@
             <param name="chromiumWebBrowser">The ChromiumWebBrowser control</param>
             <param name="browser">the browser object</param>
         </member>
-        <member name="M:CefSharp.IRequestHandler.OnRenderProcessTerminated(CefSharp.IWebBrowser,CefSharp.IBrowser,CefSharp.CefTerminationStatus)">
+        <member name="M:CefSharp.IRequestHandler.OnRenderProcessTerminated(CefSharp.IWebBrowser,CefSharp.IBrowser,CefSharp.CefTerminationStatus,System.Int32,System.String)">
             <summary>
             Called when the render process terminates unexpectedly.
             </summary>
             <param name="chromiumWebBrowser">The ChromiumWebBrowser control</param>
             <param name="browser">the browser object</param>
             <param name="status">indicates how the process terminated.</param>
+            <param name="errorCode">error code</param>
+            <param name="errorMessage">error message</param>
         </member>
         <member name="T:CefSharp.IResourceHandler">
             <summary>
@@ -8745,14 +8846,14 @@
             Returns the focused frame for the browser window or null.
             </summary>
         </member>
-        <member name="M:CefSharp.IBrowser.GetFrame(System.Int64)">
+        <member name="M:CefSharp.IBrowser.GetFrameByIdentifier(System.String)">
             <summary>
             Returns the frame with the specified identifier, or NULL if not found.
             </summary>
             <param name="identifier">identifier</param>
             <returns>frame or null</returns>
         </member>
-        <member name="M:CefSharp.IBrowser.GetFrame(System.String)">
+        <member name="M:CefSharp.IBrowser.GetFrameByName(System.String)">
             <summary>
             Returns the frame with the specified name, or NULL if not found.
             </summary>
@@ -8781,6 +8882,12 @@
             <summary>
             Gets a value indicating whether the browser has been disposed of.
             </summary>
+        </member>
+        <member name="M:CefSharp.IBrowser.GetAllFrames">
+            <summary>
+            Gets a collection of all the current frames.
+            </summary>
+            <returns>frames</returns>
         </member>
         <member name="T:CefSharp.IBrowserHost">
             <summary>
@@ -10191,7 +10298,8 @@
         </member>
         <member name="P:CefSharp.IFrame.Identifier">
             <summary>
-            Returns the globally unique identifier for this frame or &lt; 0 if the underlying frame does not yet exist.
+            Returns the globally unique identifier for this frame or empty if the
+            underlying frame does not yet exist.
             </summary>
         </member>
         <member name="P:CefSharp.IFrame.Parent">
@@ -11244,14 +11352,23 @@
             <param name="screenY">screen y</param>
             <returns>Return true if the screen coordinates were provided.</returns>
         </member>
-        <member name="M:CefSharp.Internals.IRenderWebBrowser.OnAcceleratedPaint(CefSharp.PaintElementType,CefSharp.Structs.Rect,System.IntPtr)">
-            <summary>
-            Called when an element has been rendered to the shared texture handle.
-            This method is only called when <see cref="P:CefSharp.IWindowInfo.SharedTextureEnabled"/> is set to true
-            </summary>
-            <param name="type">indicates whether the element is the view or the popup widget.</param>
-            <param name="dirtyRect">contains the set of rectangles in pixel coordinates that need to be repainted</param>
-            <param name="sharedHandle">is the handle for a D3D11 Texture2D that can be accessed via ID3D11Device using the OpenSharedResource method.</param>
+        <member name="M:CefSharp.Internals.IRenderWebBrowser.OnAcceleratedPaint(CefSharp.PaintElementType,CefSharp.Structs.Rect,CefSharp.AcceleratedPaintInfo)">
+             <summary>
+             Called when an element has been rendered to the shared texture handle.
+             This method is only called when <see cref="P:CefSharp.IWindowInfo.SharedTextureEnabled"/> is set to true
+            
+             The underlying implementation uses a pool to deliver frames. As a result,
+             the handle may differ every frame depending on how many frames are
+             in-progress. The handle's resource cannot be cached and cannot be accessed
+             outside of this callback. It should be reopened each time this callback is
+             executed and the contents should be copied to a texture owned by the
+             client application. The contents of <paramref name="acceleratedPaintInfo"/>acceleratedPaintInfo
+             will be released back to the pool after this callback returns.
+             </summary>
+             <param name="type">indicates whether the element is the view or the popup widget.</param>
+             <param name="dirtyRect">contains the set of rectangles in pixel coordinates that need to be repainted</param>
+             <param name="acceleratedPaintInfo">contains the shared handle; on Windows it is a
+             HANDLE to a texture that can be opened with D3D11 OpenSharedResource.</param>
         </member>
         <member name="M:CefSharp.Internals.IRenderWebBrowser.OnPaint(CefSharp.PaintElementType,CefSharp.Structs.Rect,System.IntPtr,System.Int32,System.Int32)">
             <summary>
@@ -12952,6 +13069,7 @@
             Window Name
             </summary>
         </member>
+        <!-- Badly formed XML comment ignored for member "P:CefSharp.IWindowInfo.RuntimeStyle" -->
         <member name="M:CefSharp.IWindowInfo.SetAsChild(System.IntPtr)">
             <summary>
             Create the browser as a child window.

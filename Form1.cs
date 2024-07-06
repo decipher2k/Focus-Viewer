@@ -1009,7 +1009,7 @@ namespace Focus_Browser
         {
             if (chromiumWebBrowser1 != null)
             {
-                toolStripTextBox1.Width = Width - toolStripButton1.Width - toolStripButton2.Width - toolStripButton3.Width - toolStripDropDownButton1.Width - 50 - toolStripButton4.Width;
+                toolStripTextBox1.Width = (Width - toolStripButton1.Width - toolStripButton2.Width - toolStripButton3.Width - toolStripDropDownButton1.Width - 50 - toolStripButton4.Width)-50;
                 chromiumWebBrowser1.Width = richTextBox1.Left;
                 chromiumWebBrowser1.Height = this.Height - 55;
             }

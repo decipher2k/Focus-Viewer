@@ -1,6 +1,0 @@
-2024/03/13-04:55:14.411 5198 Reusing MANIFEST D:\Focus-Viewer\bin\Debug\cache\Local Storage\leveldb/MANIFEST-000001
-2024/03/13-04:55:14.414 5198 Recovering log #611
-2024/03/13-04:55:14.416 5198 Reusing old log D:\Focus-Viewer\bin\Debug\cache\Local Storage\leveldb/000611.log 
-2024/03/13-04:55:23.277 2688 Level-0 table #615: started
-2024/03/13-04:55:23.283 2688 Level-0 table #615: 24390 bytes OK
-2024/03/13-04:55:23.284 2688 Delete type=0 #611

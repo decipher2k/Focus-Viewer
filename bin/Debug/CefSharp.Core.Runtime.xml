@@ -1287,6 +1287,17 @@ the CEF browser process before the application exits. Do not call any
 other CEF functions after calling this function.
 
 </member>
+        <member name="M:CefGetExitCode">
+
+This function can optionally be called on the main application thread after
+CefInitialize to retrieve the initialization exit code. When CefInitialize
+returns true the exit code will be 0 (CEF_RESULT_CODE_NORMAL_EXIT).
+Otherwise, see cef_resultcode_t for possible exit code values including
+browser process initialization errors and normal early exit conditions (such
+as CEF_RESULT_CODE_NORMAL_EXIT_PROCESS_NOTIFIED for process singleton
+relaunch behavior).
+
+</member>
         <member name="M:CefInitialize(CefMainArgs!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,CefStructBase&lt;CefSettingsTraits&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,scoped_refptr&lt;CefApp&gt;,System.Void*)">
 
 This function should be called on the main application thread to initialize
@@ -1294,9 +1305,9 @@ the CEF browser process. The |application| parameter may be empty. Returns
 true if initialization succeeds. Returns false if initialization fails or if
 early exit is desired (for example, due to process singleton relaunch
 behavior). If this function returns false then the application should exit
-immediately without calling any other CEF functions. The
-|windows_sandbox_info| parameter is only used on Windows and may be NULL
-(see cef_sandbox_win.h for details).
+immediately without calling any other CEF functions except, optionally,
+CefGetErrorCode. The |windows_sandbox_info| parameter is only used on
+Windows and may be NULL (see cef_sandbox_win.h for details).
 
 </member>
         <member name="M:CefExecuteProcess(CefMainArgs!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,scoped_refptr&lt;CefApp&gt;,System.Void*)">
@@ -1527,13 +1538,23 @@ will be called on the render process main thread (TID_RENDERER) unless
 otherwise indicated.
 
 </member>
+        <member name="M:CefBrowserProcessHandler.GetDefaultRequestContextHandler">
+
+Return the default handler for use with a new user or incognito profile
+(CefRequestContext object). If null is returned the CefRequestContext will
+be unmanaged (no callbacks will be executed for that CefRequestContext).
+This method is currently only used with the Chrome runtime when creating
+new browser windows via Chrome UI.
+
+</member>
         <member name="M:CefBrowserProcessHandler.GetDefaultClient">
 
-Return the default client for use with a newly created browser window. If
-null is returned the browser will be unmanaged (no callbacks will be
-executed for that browser) and application shutdown will be blocked until
-the browser window is closed manually. This method is currently only used
-with the chrome runtime.
+Return the default client for use with a newly created browser window
+(CefBrowser object). If null is returned the CefBrowser will be unmanaged
+(no callbacks will be executed for that CefBrowser) and application
+shutdown will be blocked until the browser window is closed manually. This
+method is currently only used with the Chrome runtime when creating new
+browser windows via Chrome UI.
 
 </member>
         <member name="M:CefBrowserProcessHandler.OnAlreadyRunningAppRelaunch(scoped_refptr&lt;CefCommandLine&gt;,CefStringBase&lt;CefStringTraitsUTF16&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
@@ -2039,14 +2060,44 @@ client associated with |browser| returns a non-NULL value from
 CefRequestHandler::GetResourceRequestHandler for the same request
 (identified by CefRequest::GetIdentifier).
 
+
+
+Called on the browser process IO thread before a resource request is
+initiated. The |browser| and |frame| values represent the source of the
+request, and may be NULL for requests originating from service workers or
+CefURLRequest. |request| represents the request contents and cannot be
+modified in this callback. |is_navigation| will be true if the resource
+request is a navigation. |is_download| will be true if the resource
+request is a download. |request_initiator| is the origin (scheme + domain)
+of the page that initiated the request. Set |disable_default_handling| to
+true to disable default handling of the request, in which case it will
+need to be handled via CefResourceRequestHandler::GetResourceHandler or it
+will be canceled. To allow the resource load to proceed with default
+handling return NULL. To specify a handler for the resource return a
+CefResourceRequestHandler object. This method will not be called if the
+client associated with |browser| returns a non-NULL value from
+CefRequestHandler::GetResourceRequestHandler for the same request
+(identified by CefRequest::GetIdentifier).
+
 </member>
         <member name="M:CefRequestContextHandler.OnRequestContextInitialized(scoped_refptr&lt;CefRequestContext&gt;)">
 
 Called on the browser process UI thread immediately after the request
 context has been initialized.
 
+
+
+Called on the browser process UI thread immediately after the request
+context has been initialized.
+
 </member>
         <member name="T:CefRequestContextHandler">
+
+Implement this interface to provide handler implementations. The handler
+instance will not be released until all objects related to the context have
+been destroyed.
+
+
 
 Implement this interface to provide handler implementations. The handler
 instance will not be released until all objects related to the context have
@@ -2522,11 +2573,41 @@ Called on the browser process UI thread when the window.document object of
 the main frame has been created.
 
 </member>
-        <member name="M:CefRequestHandler.OnRenderProcessTerminated(scoped_refptr&lt;CefBrowser&gt;,cef_termination_status_t)">
+        <member name="M:CefRequestHandler.OnRenderProcessTerminated(scoped_refptr&lt;CefBrowser&gt;,cef_termination_status_t,System.Int32,CefStringBase&lt;CefStringTraitsUTF16&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
 
 Called on the browser process UI thread when the render process
-terminates unexpectedly. |status| indicates how the process
-terminated.
+terminates unexpectedly. |status| indicates how the process terminated.
+|error_code| and |error_string| represent the error that would be
+displayed in Chrome's "Aw, Snap!" view. Possible |error_code| values
+include cef_resultcode_t non-normal exit values and platform-specific
+crash values (for example, a Posix signal or Windows hardware exception).
+
+</member>
+        <member name="M:CefRequestHandler.OnRenderProcessResponsive(scoped_refptr&lt;CefBrowser&gt;)">
+
+Called on the browser process UI thread when the render process becomes
+responsive after previously being unresponsive. See documentation on
+OnRenderProcessUnresponsive.
+
+</member>
+        <member name="M:CefRequestHandler.OnRenderProcessUnresponsive(scoped_refptr&lt;CefBrowser&gt;,scoped_refptr&lt;CefUnresponsiveProcessCallback&gt;)">
+
+Called on the browser process UI thread when the render process is
+unresponsive as indicated by a lack of input event processing for at
+least 15 seconds. Return false for the default behavior which is an
+indefinite wait with the Alloy runtime or display of the "Page
+unresponsive" dialog with the Chrome runtime. Return true and don't
+execute the callback for an indefinite wait without display of the Chrome
+runtime dialog. Return true and call CefUnresponsiveProcessCallback::Wait
+either in this method or at a later time to reset the wait timer,
+potentially triggering another call to this method if the process remains
+unresponsive. Return true and call CefUnresponsiveProcessCallback::
+Terminate either in this method or at a later time to terminate the
+unresponsive process, resulting in a call to OnRenderProcessTerminated.
+OnRenderProcessResponsive will be called if the process becomes responsive
+after this method is called. This functionality depends on the hang
+monitor which can be disabled by passing the `--disable-hang-monitor`
+command-line flag.
 
 </member>
         <member name="M:CefRequestHandler.OnRenderViewReady(scoped_refptr&lt;CefBrowser&gt;)">
@@ -2639,6 +2720,21 @@ NULL value means that no client certificate should be used.
         <member name="T:CefSelectClientCertificateCallback">
 
 Callback interface used to select a client certificate for authentication.
+
+</member>
+        <member name="M:CefUnresponsiveProcessCallback.Terminate">
+
+Terminate the unresponsive process.
+
+</member>
+        <member name="M:CefUnresponsiveProcessCallback.Wait">
+
+Reset the timeout for the unresponsive process.
+
+</member>
+        <member name="T:CefUnresponsiveProcessCallback">
+
+Callback interface for asynchronous handling of an unresponsive process.
 
 </member>
         <member name="M:CefIsCertStatusError(cef_cert_status_t)">
@@ -2995,15 +3091,24 @@ Called to retrieve the size of the touch handle for the specified
 |orientation|.
 
 </member>
-        <member name="M:CefRenderHandler.OnAcceleratedPaint(scoped_refptr&lt;CefBrowser&gt;,cef_paint_element_type_t,std.vector&lt;CefRect,std.allocator&lt;CefRect&gt;&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,System.Void*)">
+        <member name="M:CefRenderHandler.OnAcceleratedPaint(scoped_refptr&lt;CefBrowser&gt;,cef_paint_element_type_t,std.vector&lt;CefRect,std.allocator&lt;CefRect&gt;&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,CefAcceleratedPaintInfo!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
 
 Called when an element has been rendered to the shared texture handle.
 |type| indicates whether the element is the view or the popup widget.
 |dirtyRects| contains the set of rectangles in pixel coordinates that need
-to be repainted. |shared_handle| is the handle for a D3D11 Texture2D that
-can be accessed via ID3D11Device using the OpenSharedResource method. This
-method is only called when CefWindowInfo::shared_texture_enabled is set to
-true, and is currently only supported on Windows.
+to be repainted. |info| contains the shared handle; on Windows it is a
+HANDLE to a texture that can be opened with D3D11 OpenSharedResource, on
+macOS it is an IOSurface pointer that can be opened with Metal or OpenGL,
+and on Linux it contains several planes, each with an fd to the underlying
+system native buffer.
+
+The underlying implementation uses a pool to deliver frames. As a result,
+the handle may differ every frame depending on how many frames are
+in-progress. The handle's resource cannot be cached and cannot be accessed
+outside of this callback. It should be reopened each time this callback is
+executed and the contents should be copied to a texture owned by the
+client application. The contents of |info| will be released back to the
+pool after this callback returns.
 
 </member>
         <member name="M:CefRenderHandler.OnPaint(scoped_refptr&lt;CefBrowser&gt;,cef_paint_element_type_t,std.vector&lt;CefRect,std.allocator&lt;CefRect&gt;&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,System.Void!System.Runtime.CompilerServices.IsConst*,System.Int32,System.Int32)">
@@ -3872,18 +3977,20 @@ this method.
         <member name="M:CefDownloadHandler.OnBeforeDownload(scoped_refptr&lt;CefBrowser&gt;,scoped_refptr&lt;CefDownloadItem&gt;,CefStringBase&lt;CefStringTraitsUTF16&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,scoped_refptr&lt;CefBeforeDownloadCallback&gt;)">
 
 Called before a download begins. |suggested_name| is the suggested name
-for the download file. By default the download will be canceled. Execute
-|callback| either asynchronously or in this method to continue the
-download if desired. Do not keep a reference to |download_item| outside of
-this method.
+for the download file. Return true and execute |callback| either
+asynchronously or in this method to continue or cancel the download.
+Return false to proceed with default handling (cancel with Alloy style,
+download shelf with Chrome style). Do not keep a reference to
+|download_item| outside of this method.
 
 
 
 Called before a download begins. |suggested_name| is the suggested name
-for the download file. By default the download will be canceled. Execute
-|callback| either asynchronously or in this method to continue the
-download if desired. Do not keep a reference to |download_item| outside of
-this method.
+for the download file. Return true and execute |callback| either
+asynchronously or in this method to continue or cancel the download.
+Return false to proceed with default handling (cancel with Alloy style,
+download shelf with Chrome style). Do not keep a reference to
+|download_item| outside of this method.
 
 </member>
         <member name="M:CefDownloadHandler.CanDownload(scoped_refptr&lt;CefBrowser&gt;,CefStringBase&lt;CefStringTraitsUTF16&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,CefStringBase&lt;CefStringTraitsUTF16&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
@@ -4058,20 +4165,26 @@ Implement this interface to handle events related to browser display state.
 The methods of this class will be called on the UI thread.
 
 </member>
-        <member name="M:CefDialogHandler.OnFileDialog(scoped_refptr&lt;CefBrowser&gt;,cef_file_dialog_mode_t,CefStringBase&lt;CefStringTraitsUTF16&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,CefStringBase&lt;CefStringTraitsUTF16&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,std.vector&lt;CefStringBase&lt;CefStringTraitsUTF16&gt;,std.allocator&lt;CefStringBase&lt;CefStringTraitsUTF16&gt;&gt;&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,scoped_refptr&lt;CefFileDialogCallback&gt;)">
+        <member name="M:CefDialogHandler.OnFileDialog(scoped_refptr&lt;CefBrowser&gt;,cef_file_dialog_mode_t,CefStringBase&lt;CefStringTraitsUTF16&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,CefStringBase&lt;CefStringTraitsUTF16&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,std.vector&lt;CefStringBase&lt;CefStringTraitsUTF16&gt;,std.allocator&lt;CefStringBase&lt;CefStringTraitsUTF16&gt;&gt;&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,std.vector&lt;CefStringBase&lt;CefStringTraitsUTF16&gt;,std.allocator&lt;CefStringBase&lt;CefStringTraitsUTF16&gt;&gt;&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,std.vector&lt;CefStringBase&lt;CefString">
 
 Called to run a file chooser dialog. |mode| represents the type of dialog
 to display. |title| to the title to be used for the dialog and may be
 empty to show the default title ("Open" or "Save" depending on the mode).
 |default_file_path| is the path with optional directory and/or file name
 component that should be initially selected in the dialog.
-|accept_filters| are used to restrict the selectable file types and may
-any combination of (a) valid lower-cased MIME types (e.g. "text/*" or
-"image/*"), (b) individual file extensions (e.g. ".txt" or ".png"), or (c)
-combined description and file extension delimited using "|" and ";" (e.g.
-"Image Types|.png;.gif;.jpg"). To display a custom dialog return true and
-execute |callback| either inline or at a later time. To display the
-default dialog return false.
+|accept_filters| are used to restrict the selectable file types and may be
+any combination of valid lower-cased MIME types (e.g. "text/*" or
+"image/*") and individual file extensions (e.g. ".txt" or ".png").
+|accept_extensions| provides the semicolon-delimited expansion of MIME
+types to file extensions (if known, or empty string otherwise).
+|accept_descriptions| provides the descriptions for MIME types (if known,
+or empty string otherwise). For example, the "image/*" mime type might
+have extensions ".png;.jpg;.bmp;..." and description "Image Files".
+|accept_filters|, |accept_extensions| and |accept_descriptions| will all
+be the same size. To display a custom dialog return true and execute
+|callback| either inline or at a later time. To display the default dialog
+return false. If this method returns false it may be called an additional
+time for the same dialog (both before and after MIME type expansion).
 
 </member>
         <member name="T:CefDialogHandler">
@@ -5220,7 +5333,7 @@ Read the keys for the object's values into the specified vector. Integer-
 based keys will also be returned as strings.
 
 </member>
-        <member name="M:CefV8Value.SetValue(CefStringBase&lt;CefStringTraitsUTF16&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,cef_v8_accesscontrol_t,cef_v8_propertyattribute_t)">
+        <member name="M:CefV8Value.SetValue(CefStringBase&lt;CefStringTraitsUTF16&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,cef_v8_propertyattribute_t)">
 
 Registers an identifier and returns true on success. Access to the
 identifier will be forwarded to the CefV8Accessor instance passed to
@@ -5918,6 +6031,22 @@ of the target thread. For this reason be cautious when performing work in
 the task object destructor.
 
 </member>
+        <member name="M:CefBrowserHost.GetRuntimeStyle">
+
+Returns the runtime style for this browser (ALLOY or CHROME). See
+cef_runtime_style_t documentation for details.
+
+</member>
+        <member name="M:CefBrowserHost.IsRenderProcessUnresponsive">
+
+Returns true if the render process associated with this browser is
+currently unresponsive as indicated by a lack of input event processing
+for at least 15 seconds. To receive associated state change notifications
+and optionally handle an unresponsive render process implement
+CefRequestHandler::OnRenderProcessUnresponsive. This method can only be
+called on the UI thread.
+
+</member>
         <member name="M:CefBrowserHost.ExecuteChromeCommand(System.Int32,cef_window_open_disposition_t)">
 
 Execute a Chrome command. Values for |command_id| can be found in the
@@ -5971,11 +6100,15 @@ Returns true if this browser is hosting an extension background script.
 Background hosts do not have a window and are not displayable. See
 CefRequestContext::LoadExtension for details.
 
+WARNING: This method is deprecated and will be removed in ~M127.
+
 </member>
         <member name="M:CefBrowserHost.GetExtension">
 
 Returns the extension hosted in this browser or NULL if no extension is
 hosted. See CefRequestContext::LoadExtension for details.
+
+WARNING: This method is deprecated and will be removed in ~M127.
 
 </member>
         <member name="M:CefBrowserHost.SetAutoResizeEnabled(System.Boolean,CefSize!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,CefSize!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
@@ -6537,7 +6670,7 @@ class will be called on the browser process UI thread.
 Returns the names of all existing frames.
 
 </member>
-        <member name="M:CefBrowser.GetFrameIdentifiers(std.vector&lt;System.Int64,std.allocator&lt;System.Int64&gt;&gt;*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+        <member name="M:CefBrowser.GetFrameIdentifiers(std.vector&lt;CefStringBase&lt;CefStringTraitsUTF16&gt;,std.allocator&lt;CefStringBase&lt;CefStringTraitsUTF16&gt;&gt;&gt;*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
 
 Returns the identifiers of all existing frames.
 
@@ -6547,12 +6680,12 @@ Returns the identifiers of all existing frames.
 Returns the number of frames that currently exist.
 
 </member>
-        <member name="M:CefBrowser.GetFrame(CefStringBase&lt;CefStringTraitsUTF16&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
+        <member name="M:CefBrowser.GetFrameByName(CefStringBase&lt;CefStringTraitsUTF16&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
 
 Returns the frame with the specified name, or NULL if not found.
 
 </member>
-        <member name="M:CefBrowser.GetFrame(System.Int64)">
+        <member name="M:CefBrowser.GetFrameByIdentifier(CefStringBase&lt;CefStringTraitsUTF16&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
 
 Returns the frame with the specified identifier, or NULL if not found.
 
@@ -6655,6 +6788,33 @@ in the comments. When used in the render process the methods of this class
 may only be called on the main thread.
 
 </member>
+        <member name="M:CefRequestContext.GetChromeColorSchemeVariant">
+
+Returns the current Chrome color scheme variant. Must be called on the
+browser process UI thread.
+
+</member>
+        <member name="M:CefRequestContext.GetChromeColorSchemeColor">
+
+Returns the current Chrome color scheme color, or transparent (0) for the
+default color. Must be called on the browser process UI thread.
+
+</member>
+        <member name="M:CefRequestContext.GetChromeColorSchemeMode">
+
+Returns the current Chrome color scheme mode (SYSTEM, LIGHT or DARK). Must
+be called on the browser process UI thread.
+
+</member>
+        <member name="M:CefRequestContext.SetChromeColorScheme(cef_color_variant_t,System.UInt32)">
+
+Sets the Chrome color scheme for all browsers that share this request
+context. |variant| values of SYSTEM, LIGHT and DARK change the underlying
+color mode (e.g. light vs dark). Other |variant| values determine how
+|user_color| will be applied in the current color mode. If |user_color| is
+transparent (0) the default color will be used.
+
+</member>
         <member name="M:CefRequestContext.SetContentSetting(CefStringBase&lt;CefStringTraitsUTF16&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,CefStringBase&lt;CefStringTraitsUTF16&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,cef_content_setting_types_t,cef_content_setting_values_t)">
 
 Sets the current value for |content_type| for the specified URLs in the
@@ -6716,6 +6876,8 @@ Returns the extension matching |extension_id| or NULL if no matching
 extension is accessible in this context (see HasExtension). This method
 must be called on the browser process UI thread.
 
+WARNING: This method is deprecated and will be removed in ~M127.
+
 </member>
         <member name="M:CefRequestContext.GetExtensions(std.vector&lt;CefStringBase&lt;CefStringTraitsUTF16&gt;,std.allocator&lt;CefStringBase&lt;CefStringTraitsUTF16&gt;&gt;&gt;*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
 
@@ -6723,6 +6885,8 @@ Retrieve the list of all extensions that this context has access to (see
 HasExtension). |extension_ids| will be populated with the list of
 extension ID values. Returns true on success. This method must be called
 on the browser process UI thread.
+
+WARNING: This method is deprecated and will be removed in ~M127.
 
 </member>
         <member name="M:CefRequestContext.HasExtension(CefStringBase&lt;CefStringTraitsUTF16&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
@@ -6732,6 +6896,8 @@ Returns true if this context has access to the extension identified by
 extension (see DidLoadExtension). This method must be called on the
 browser process UI thread.
 
+WARNING: This method is deprecated and will be removed in ~M127.
+
 </member>
         <member name="M:CefRequestContext.DidLoadExtension(CefStringBase&lt;CefStringTraitsUTF16&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)">
 
@@ -6739,6 +6905,8 @@ Returns true if this context was used to load the extension identified by
 |extension_id|. Other contexts sharing the same storage will also have
 access to the extension (see HasExtension). This method must be called on
 the browser process UI thread.
+
+WARNING: This method is deprecated and will be removed in ~M127.
 
 </member>
         <member name="M:CefRequestContext.ResolveHost(CefStringBase&lt;CefStringTraitsUTF16&gt;!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,scoped_refptr&lt;CefResolveCallback&gt;)">
@@ -7220,6 +7388,8 @@ Implement this interface to handle events related to browser extensions.
 The methods of this class will be called on the UI thread. See
 CefRequestContext::LoadExtension for information about extension loading.
 
+WARNING: This API is deprecated and will be removed in ~M127.
+
 </member>
         <member name="M:CefGetExtensionResourceCallback.Cancel">
 
@@ -7296,6 +7466,8 @@ https://developer.chrome.com/extensions/manifest/key for details.
 
 Object representing an extension. Methods may be called on any thread unless
 otherwise indicated.
+
+WARNING: This API is deprecated and will be removed in ~M127.
 
 </member>
         <member name="M:CefDeleteCookiesCallback.OnComplete(System.Int32)">
@@ -7684,6 +7856,12 @@ Returns the URL currently loaded in this frame.
 
 Returns the parent of this frame or NULL if this is the main (top-level)
 frame.
+
+</member>
+        <member name="M:CefFrame.GetIdentifier">
+
+Returns the globally unique identifier for this frame or empty if the
+underlying frame does not yet exist.
 
 </member>
         <member name="M:CefFrame.GetName">
@@ -9552,6 +9730,11 @@ point function has completed execution on the fiber and then return a result
 immediately without proceeding with execution.
 
 </member>
+        <member name="T:CefAcceleratedPaintInfo">
+
+Class representing accelerated paint info.
+
+</member>
         <member name="T:CefAudioParameters">
 
 Class representing CefAudioParameters settings
@@ -9864,6 +10047,12 @@ handler.
         <member name="F:CEF_CHANNEL_LAYOUT_MAX">
 Max value, must always equal the largest entry ever logged.
 </member>
+        <member name="F:CEF_CHANNEL_LAYOUT_3_1_BACK">
+Front L, Front R, LFE, Back C
+</member>
+        <member name="F:CEF_CHANNEL_LAYOUT_1_1">
+Front C, LFE
+</member>
         <member name="F:CEF_CHANNEL_LAYOUT_5_1_4_DOWNMIX">
 Front L, Front R, Front C, LFE, Side L, Side R,
 Front Height L, Front Height R, Rear Height L, Rear Height R
@@ -9876,9 +10065,10 @@ count is unknown at Chromium media pipeline level (useful for audio
 pass-through mode).
 </member>
         <member name="F:CEF_CHANNEL_LAYOUT_4_1_QUAD_SIDE">
-Front L, Front R, Side L, Side R, LFE
+Front L, Front R, LFE, Side L, Side R
 </member>
         <member name="F:CEF_CHANNEL_LAYOUT_STEREO_AND_KEYBOARD_MIC">
+Deprecated, but keeping the enum value for UMA consistency.
 Front L, Front R, Front C. Front C contains the keyboard mic audio. This
 layout is only intended for input for WebRTC. The Front C channel
 is stripped away in the WebRTC audio input pipeline and never seen outside
@@ -9888,52 +10078,52 @@ of that.
 Channels are not explicitly mapped to speakers.
 </member>
         <member name="F:CEF_CHANNEL_LAYOUT_OCTAGONAL">
-Front L, Front R, Front C, Side L, Side R, Rear L, Back R, Back C.
+Front L, Front R, Front C, Back L, Back R, Back C, Side L, Side R
 </member>
         <member name="F:CEF_CHANNEL_LAYOUT_7_1_WIDE_BACK">
 Front L, Front R, Front C, LFE, Back L, Back R, Front LofC, Front RofC
 </member>
         <member name="F:CEF_CHANNEL_LAYOUT_7_0_FRONT">
-Front L, Front R, Front C, Side L, Side R, Front LofC, Front RofC
+Front L, Front R, Front C, Front LofC, Front RofC, Side L, Side R
 </member>
         <member name="F:CEF_CHANNEL_LAYOUT_6_1_FRONT">
-Stereo L, Stereo R, Side L, Side R, Front LofC, Front RofC, LFE
+Front L, Front R, LFE, Front LofC, Front RofC, Side L, Side R
 </member>
         <member name="F:CEF_CHANNEL_LAYOUT_6_1_BACK">
-Stereo L, Stereo R, Front C, LFE, Back L, Back R, Rear Center
+Front L, Front R, Front C, LFE, Back L, Back R, Back C
 </member>
         <member name="F:CEF_CHANNEL_LAYOUT_6_1">
-Stereo L, Stereo R, Front C, LFE, Side L, Side R, Rear Center
+Front L, Front R, Front C, LFE, Back C, Side L, Side R
 </member>
         <member name="F:CEF_CHANNEL_LAYOUT_HEXAGONAL">
-Stereo L, Stereo R, Front C, Rear L, Rear R, Rear C
+Front L, Front R, Front C, Back L, Back R, Back C
 </member>
         <member name="F:CEF_CHANNEL_LAYOUT_6_0_FRONT">
-Stereo L, Stereo R, Side L, Side R, Front LofC, Front RofC
+Front L, Front R, Front LofC, Front RofC, Side L, Side R
 </member>
         <member name="F:CEF_CHANNEL_LAYOUT_6_0">
-Stereo L, Stereo R, Front C, Side L, Side R, Back C
+Front L, Front R, Front C, Back C, Side L, Side R
 </member>
         <member name="F:CEF_CHANNEL_LAYOUT_4_1">
-Stereo L, Stereo R, Front C, Rear C, LFE
+Front L, Front R, Front C, LFE, Back C
 </member>
         <member name="F:CEF_CHANNEL_LAYOUT_3_1">
-Stereo L, Stereo R, Front C, LFE
+Front L, Front R, Front C, LFE
 </member>
         <member name="F:CEF_CHANNEL_LAYOUT_2POINT1">
-Stereo L, Stereo R, LFE
+Front L, Front R, LFE
 </member>
         <member name="F:CEF_CHANNEL_LAYOUT_STEREO_DOWNMIX">
-Stereo L, Stereo R
+Front L, Front R
 </member>
         <member name="F:CEF_CHANNEL_LAYOUT_7_1_WIDE">
-Front L, Front R, Front C, LFE, Side L, Side R, Front LofC, Front RofC
+Front L, Front R, Front C, LFE, Front LofC, Front RofC, Side L, Side R
 </member>
         <member name="F:CEF_CHANNEL_LAYOUT_7_1">
-Front L, Front R, Front C, LFE, Side L, Side R, Back L, Back R
+Front L, Front R, Front C, LFE, Back L, Back R, Side L, Side R
 </member>
         <member name="F:CEF_CHANNEL_LAYOUT_7_0">
-Front L, Front R, Front C, Side L, Side R, Back L, Back R
+Front L, Front R, Front C, Back L, Back R, Side L, Side R
 </member>
         <member name="F:CEF_CHANNEL_LAYOUT_5_1_BACK">
 Front L, Front R, Front C, LFE, Back L, Back R
@@ -10153,40 +10343,17 @@ vertical.
 Settings used when initializing a CefBoxLayout.
 
 </member>
-        <member name="F:CEF_CROSS_AXIS_ALIGNMENT_END">
-
-Child views will be right-aligned.
-
-</member>
-        <member name="F:CEF_CROSS_AXIS_ALIGNMENT_CENTER">
-
-Child views will be center-aligned.
-
-</member>
-        <member name="F:CEF_CROSS_AXIS_ALIGNMENT_START">
-
-Child views will be left-aligned.
-
-</member>
-        <member name="F:CEF_CROSS_AXIS_ALIGNMENT_STRETCH">
-
+        <member name="F:CEF_AXIS_ALIGNMENT_STRETCH">
 Child views will be stretched to fit.
-
 </member>
-        <member name="F:CEF_MAIN_AXIS_ALIGNMENT_END">
-
-Child views will be right-aligned.
-
+        <member name="F:CEF_AXIS_ALIGNMENT_END">
+Child views will be right/bottom-aligned.
 </member>
-        <member name="F:CEF_MAIN_AXIS_ALIGNMENT_CENTER">
-
+        <member name="F:CEF_AXIS_ALIGNMENT_CENTER">
 Child views will be center-aligned.
-
 </member>
-        <member name="F:CEF_MAIN_AXIS_ALIGNMENT_START">
-
-Child views will be left-aligned.
-
+        <member name="F:CEF_AXIS_ALIGNMENT_START">
+Child views will be left/top-aligned.
 </member>
         <member name="F:CEF_ALPHA_TYPE_POSTMULTIPLIED">
 
@@ -10201,16 +10368,6 @@ Transparency with pre-multiplied alpha component.
         <member name="F:CEF_ALPHA_TYPE_OPAQUE">
 
 No transparency. The alpha component is ignored.
-
-</member>
-        <member name="F:CEF_COLOR_TYPE_BGRA_8888">
-
-BGRA with 8 bits per pixel (32bits total).
-
-</member>
-        <member name="F:CEF_COLOR_TYPE_RGBA_8888">
-
-RGBA with 8 bits per pixel (32bits total).
 
 </member>
         <member name="F:RESPONSE_FILTER_ERROR">
@@ -11339,6 +11496,74 @@ Indicates that only one tab with the url should exist in the same window.
 Current tab. This is the default in most cases.
 
 </member>
+        <member name="F:CEF_RESULT_CODE_SANDBOX_FATAL_WARMUP">
+Windows sandbox failed to warmup.
+</member>
+        <member name="F:CEF_RESULT_CODE_SANDBOX_FATAL_MEMORY_EXCEEDED">
+Windows sandbox exceeded the job memory limit.
+</member>
+        <member name="F:CEF_RESULT_CODE_SANDBOX_FATAL_MITIGATION">
+Windows sandbox could not set the mitigation policy.
+</member>
+        <member name="F:CEF_RESULT_CODE_SANDBOX_FATAL_CLOSEHANDLES">
+Windows sandbox failed to close pending handles.
+</member>
+        <member name="F:CEF_RESULT_CODE_SANDBOX_FATAL_CACHEDISABLE">
+Windows sandbox failed to forbid HCKU caching.
+</member>
+        <member name="F:CEF_RESULT_CODE_SANDBOX_FATAL_FLUSHANDLES">
+Windows sandbox failed to flush registry handles.
+</member>
+        <member name="F:CEF_RESULT_CODE_SANDBOX_FATAL_DROPTOKEN">
+Windows sandbox could not lower the token.
+</member>
+        <member name="F:CEF_RESULT_CODE_SANDBOX_FATAL_INTEGRITY">
+Windows sandbox could not set the integrity level.
+</member>
+        <member name="F:CEF_RESULT_CODE_SYSTEM_RESOURCE_EXHAUSTED">
+The browser process exited because system resources are exhausted. The
+system state can't be recovered and will be unstable.
+</member>
+        <member name="F:CEF_RESULT_CODE_NORMAL_EXIT_PACK_EXTENSION_SUCCESS">
+An early startup command was executed and the browser must exit.
+</member>
+        <member name="F:CEF_RESULT_CODE_GPU_EXIT_ON_CONTEXT_LOST">
+The GPU process was terminated due to context lost.
+</member>
+        <member name="F:CEF_RESULT_CODE_CLOUD_POLICY_ENROLLMENT_FAILED">
+Cloud policy enrollment failed or was given up by user.
+</member>
+        <member name="F:CEF_RESULT_CODE_INVALID_SANDBOX_STATE">
+A browser process was sandboxed. This should never happen.
+</member>
+        <member name="F:CEF_RESULT_CODE_NORMAL_EXIT_PROCESS_NOTIFIED">
+The browser process exited early by passing the command line to another
+running browser.
+</member>
+        <member name="F:CEF_RESULT_CODE_PACK_EXTENSION_ERROR">
+Failed to pack an extension via the command line.
+</member>
+        <member name="F:CEF_RESULT_CODE_PROFILE_IN_USE">
+The profile was in use on another host.
+</member>
+        <member name="F:CEF_RESULT_CODE_UNSUPPORTED_PARAM">
+Command line parameter is not supported.
+</member>
+        <member name="F:CEF_RESULT_CODE_MISSING_DATA">
+A critical chrome file is missing.
+</member>
+        <member name="F:CEF_RESULT_CODE_GPU_DEAD_ON_ARRIVAL">
+The GPU process exited because initialization failed.
+</member>
+        <member name="F:CEF_RESULT_CODE_KILLED_BAD_MESSAGE">
+A bad message caused the process termination.
+</member>
+        <member name="F:CEF_RESULT_CODE_HUNG">
+Process hung.
+</member>
+        <member name="F:CEF_RESULT_CODE_KILLED">
+Process was killed by user or system.
+</member>
         <member name="F:PK_DIR_RESOURCES">
 
 Directory containing application resources. Can be configured via
@@ -11386,6 +11611,16 @@ Directory containing PK_FILE_EXE.
         <member name="F:PK_DIR_CURRENT">
 
 Current directory.
+
+</member>
+        <member name="F:TS_INTEGRITY_FAILURE">
+
+On Windows, the OS terminated the process due to code integrity failure.
+
+</member>
+        <member name="F:TS_LAUNCH_FAILED">
+
+Child process never launched.
 
 </member>
         <member name="F:TS_PROCESS_OOM">
@@ -11819,16 +12054,6 @@ configurable using the "uncaught-exception-stack-size" command-line
 switch.
 
 </member>
-        <member name="F:_cef_settings_t.remote_debugging_port">
-
-Set to a value between 1024 and 65535 to enable remote debugging on the
-specified port. Also configurable using the "remote-debugging-port"
-command-line switch. Remote debugging can be accessed by loading the
-chrome://inspect page in Google Chrome. Port numbers 9222 and 9229 are
-discoverable by default. Other port numbers may need to be configured via
-"Discover network targets" on the Devices tab.
-
-</member>
         <member name="F:_cef_settings_t.pack_loading_disabled">
 
 Set to true (1) to disable loading of pack files for resources and
@@ -12146,6 +12371,31 @@ Verbose logging.
 Default logging (currently INFO logging).
 
 </member>
+        <member name="F:_cef_accelerated_paint_info_t.format">
+
+The pixel format of the texture.
+
+</member>
+        <member name="F:_cef_accelerated_paint_info_t.shared_texture_handle">
+
+Handle for the shared texture. The shared texture is instantiated
+without a keyed mutex.
+
+</member>
+        <member name="T:_cef_accelerated_paint_info_t">
+
+Structure containing shared texture information for the OnAcceleratedPaint
+callback. Resources will be released to the underlying pool for reuse when
+the callback returns from client code.
+
+</member>
+        <member name="F:_cef_window_info_t.runtime_style">
+
+Optionally change the runtime style. Alloy style will always be used if
+|windowless_rendering_enabled| is true. See cef_runtime_style_t
+documentation for details.
+
+</member>
         <member name="F:_cef_window_info_t.window">
 
 Handle for the new browser window. Only used with windowed rendering.
@@ -12188,6 +12438,34 @@ Structure representing window information.
 Structure representing CefExecuteProcess arguments.
 
 </member>
+        <member name="F:CEF_RUNTIME_STYLE_ALLOY">
+
+Use the Alloy runtime style. Supported with both the Alloy and Chrome
+runtime.
+
+</member>
+        <member name="F:CEF_RUNTIME_STYLE_CHROME">
+
+Use the Chrome runtime style. Only supported with the Chrome runtime.
+
+</member>
+        <member name="F:CEF_RUNTIME_STYLE_DEFAULT">
+
+Use the default runtime style. The default style will match the
+CefSettings.chrome_runtime value in most cases. See above documentation
+for exceptions.
+
+</member>
+        <member name="F:CEF_COLOR_TYPE_BGRA_8888">
+
+BGRA with 8 bits per pixel (32bits total).
+
+</member>
+        <member name="F:CEF_COLOR_TYPE_RGBA_8888">
+
+RGBA with 8 bits per pixel (32bits total).
+
+</member>
         <member name="T:_cef_insets_t">
 
 Structure representing insets.
@@ -12208,13 +12486,52 @@ Structure representing a rectangle.
 Structure representing a point.
 
 </member>
+        <member name="F:TRACKING_PROTECTION">
+Content setting that controls tracking protection status per site.
+BLOCK: Protections enabled. This is the default state.
+ALLOW: Protections disabled.
+</member>
+        <member name="F:REVOKED_ABUSIVE_NOTIFICATION_PERMISSIONS">
+Website setting which is used for UnusedSitePermissionsService to store
+auto-revoked notification permissions from abusive sites.
+</member>
+        <member name="F:CEF_CONTENT_SETTING_TYPE_POINTER_LOCK">
+Pointer Lock API allows a site to hide the cursor and have exclusive
+access to mouse inputs.
+</member>
+        <member name="F:CEF_CONTENT_SETTING_TYPE_KEYBOARD_LOCK">
+Keyboard Lock API allows a site to capture keyboard inputs that would
+otherwise be handled by the OS or the browser.
+</member>
+        <member name="F:CEF_CONTENT_SETTING_TYPE_DIRECT_SOCKETS">
+Content settings for access to the Direct Sockets API.
+</member>
+        <member name="F:CEF_CONTENT_SETTING_TYPE_SPEAKER_SELECTION">
+Whether an application can enumerate audio output device.
+</member>
+        <member name="F:CEF_CONTENT_SETTING_TYPE_SUB_APP_INSTALLATION_PROMPTS">
+Content settings used to indicate that a web app is allowed to prompt the
+user for the installation of sub apps.
+</member>
+        <member name="F:CEF_CONTENT_SETTING_TYPE_AUTOMATIC_FULLSCREEN">
+Content setting used to indicate whether entering HTML Fullscreen
+automatically (i.e. without transient activation) should be enabled.
+</member>
+        <member name="F:CEF_CONTENT_SETTING_TYPE_WEB_PRINTING">
+Content settings for access to printers for the Web Printing API.
+</member>
+        <member name="F:CEF_CONTENT_SETTING_TYPE_SMART_CARD_GUARD">
+Content setting for access to smart card readers.
+The "guard" content setting stores whether to allow sites to access the
+Smart Card API.
+</member>
+        <member name="F:CEF_CONTENT_SETTING_TYPE_CAPTURED_SURFACE_CONTROL">
+Whether an application capturing another tab, may scroll and zoom
+the captured tab.
+</member>
         <member name="F:CEF_CONTENT_SETTING_TYPE_FILE_SYSTEM_ACCESS_RESTORE_PERMISSION">
 Whether the FSA Persistent Permissions restore prompt is eligible to be
 shown to the user, for a given origin.
-</member>
-        <member name="F:CEF_CONTENT_SETTING_TYPE_TPCD_HEURISTICS_GRANTS">
-Content Setting for temporary 3PC accesses granted by user behavior
-heuristics.
 </member>
         <member name="F:CEF_CONTENT_SETTING_TYPE_FILE_SYSTEM_ACCESS_EXTENDED_PERMISSION">
 Whether user has opted into keeping file/directory permissions persistent
@@ -12222,17 +12539,34 @@ between visits for a given origin. When enabled, permission metadata
 stored under |FILE_SYSTEM_ACCESS_CHOOSER_DATA| can auto-grant incoming
 permission request.
 </member>
+        <member name="F:CEF_CONTENT_SETTING_TYPE_AUTO_PICTURE_IN_PICTURE">
+Content setting used to indicate whether entering picture-in-picture
+automatically should be enabled.
+</member>
+        <member name="F:CEF_CONTENT_SETTING_TOP_LEVEL_TPCD_ORIGIN_TRIAL">
+Content Setting for a first-party origin trial that allows websites to
+enable third-party cookie deprecation.
+ALLOW (default): no effect (e.g. third-party cookies allowed, if not
+                 blocked otherwise).
+BLOCK: third-party cookies blocked, but 3PCD mitigations enabled.
+</member>
+        <member name="F:CEF_CONTENT_SETTING_TYPE_TOP_LEVEL_TPCD_TRIAL">
+Content Setting for 3PC accesses granted via top-level 3PC deprecation
+trial. Similar to TPCD_TRIAL, but applicable at the page-level for the
+lifetime of the page that served the token, rather than being specific to
+a requesting-origin/top-level-site combination and persistent.
+</member>
+        <member name="F:CEF_CONTENT_SETTING_TYPE_TPCD_TRIAL">
+Content Setting for 3PC accesses granted via 3PC deprecation trial.
+</member>
         <member name="F:CEF_CONTENT_SETTING_TYPE_TPCD_METADATA_GRANTS">
 Content Setting for 3PC accesses granted by metadata delivered via the
 component updater service. This type will only be used when
 `net::features::kTpcdMetadataGrants` is enabled.
 </member>
-        <member name="F:CEF_CONTENT_SETTING_TYPE_AUTO_PICTURE_IN_PICTURE">
-Content setting used to indicate whether entering picture-in-picture
-automatically should be enabled.
-</member>
-        <member name="F:CEF_CONTENT_SETTING_TYPE_TPCD_SUPPORT">
-Content Setting for 3PC accesses granted via 3PC deprecation trial.
+        <member name="F:CEF_CONTENT_SETTING_TYPE_TPCD_HEURISTICS_GRANTS">
+Content Setting for temporary 3PC accesses granted by user behavior
+heuristics.
 </member>
         <member name="F:CEF_CONTENT_SETTING_TYPE_COOKIE_CONTROLS_METADATA">
 Stores per origin metadata for cookie controls.
@@ -13391,10 +13725,10 @@ Class used to represent a download item.
         <!-- Discarding badly formed XML document comment for member 'M:_wassert(System.Char!System.Runtime.CompilerServices.IsConst*,System.Char!System.Runtime.CompilerServices.IsConst*,System.UInt32)'. -->
         <!-- Discarding badly formed XML document comment for member 'T:_cef_basetime_t'. -->
         <!-- Discarding badly formed XML document comment for member 'F:_cef_settings_t.browser_subprocess_path'. -->
+        <!-- Discarding badly formed XML document comment for member 'F:_cef_settings_t.remote_debugging_port'. -->
         <!-- Discarding badly formed XML document comment for member 'F:RT_PING'. -->
         <!-- Discarding badly formed XML document comment for member 'F:UU_URL_SPECIAL_CHARS_EXCEPT_PATH_SEPARATORS'. -->
         <!-- Discarding badly formed XML document comment for member 'F:_cef_pdf_print_settings_t.header_template'. -->
-        <!-- Discarding badly formed XML document comment for member 'M:CefFrame.GetIdentifier'. -->
         <!-- Discarding badly formed XML document comment for member 'M:CefExtensionHandler.OnBeforeBackgroundBrowser(scoped_refptr<CefExtension>,CefStringBase<CefStringTraitsUTF16>!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,scoped_refptr<CefClient>*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,CefStructBase<CefBrowserSettingsTraits>*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)'. -->
         <!-- Discarding badly formed XML document comment for member 'M:CefMediaRouter.GetSource(CefStringBase<CefStringTraitsUTF16>!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced)'. -->
         <!-- Discarding badly formed XML document comment for member 'M:CefRequestContext.LoadExtension(CefStringBase<CefStringTraitsUTF16>!System.Runtime.CompilerServices.IsConst*!System.Runtime.CompilerServices.IsImplicitlyDereferenced,scoped_refptr<CefDictionaryValue>,scoped_refptr<CefExtensionHandler>)'. -->
